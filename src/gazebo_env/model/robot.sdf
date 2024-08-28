@@ -1,0 +1,1696 @@
+<?xml version="1.0" ?>
+<sdf version='1.10'>
+  <model name='robot'>
+    <link name='chest'>
+      <inertial>
+        <pose>-0.00018384687032060699 -0.0045161370514227696 -0.057123501960896897 0 0 0</pose>
+        <mass>0.88192504598295396</mass>
+        <inertia>
+          <ixx>0.00046345121044283501</ixx>
+          <ixy>-1.69677482344443e-08</ixy>
+          <ixz>3.1548801144944602e-07</ixz>
+          <iyy>0.000627560669282691</iyy>
+          <iyz>-2.8050692226923402e-06</iyz>
+          <izz>0.00057015264499342302</izz>
+        </inertia>
+      </inertial>
+      <collision name='chest_box'>
+        <pose>0 0.005 -0.05 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1125 0.0975 0.14</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='chest_cylinder'>
+        <pose>0 -0.0756991 0.038 0 1.570796327 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.008</radius>
+            <length>0.1146</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='chest_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/chest.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.137254909 0.137254909 0.137254909 1</diffuse>
+          <ambient>0.137254909 0.137254909 0.137254909 1</ambient>
+        </material>
+      </visual>
+      <pose>0 0 0 0 0 0</pose>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='left_arm_upper' type='revolute'>
+      <pose>6.9388939039072284e-18 -1.7347234759768071e-18 1.3877787807814457e-17 0 0 0</pose>
+      <parent>chest</parent>
+      <child>left_arm</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0347</damping>
+          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_arm'>
+      <pose>-0.074700000000000003 0.0134 0 3.14159265358979 1.5707963267948966 0</pose>
+      <inertial>
+        <pose>0.080763041509478606 0.00188579229078956 0.029109375792634701 0 0 0</pose>
+        <mass>0.140880482426088</mass>
+        <inertia>
+          <ixx>2.0746461598375701e-05</ixx>
+          <ixy>-2.8659021101734599e-11</ixy>
+          <ixz>-6.7417528894394298e-06</ixz>
+          <iyy>0.00012310039515784201</iyy>
+          <iyz>-1.5929639449771301e-07</iyz>
+          <izz>0.00011999284945507099</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_arm_collision'>
+        <pose>0.0805 0 0.029 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1271 0.048 0.028</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='left_arm_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/left_arm.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='left_arm_lower' type='revolute'>
+      <pose>2.7755575615628914e-17 -1.7347234759768071e-18 1.3877787807814457e-17 0 0 0</pose>
+      <parent>left_arm</parent>
+      <child>left_hand</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0347</damping>
+          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_hand'>
+      <pose>-0.12424999999999893 0.013399999999999839 -0.13600000000000201 3.14159265358979 1.5707963267948966 0</pose>
+      <inertial>
+        <pose>0.063649150048298797 -1.0037286533176599e-08 0.0013189448064454001 0 0 0</pose>
+        <mass>0.024044269196268502</mass>
+        <inertia>
+          <ixx>1.94691318232501e-06</ixx>
+          <ixy>1.9798400242031498e-12</ixy>
+          <ixz>1.70538796340321e-12</ixz>
+          <iyy>4.9981652993954002e-05</iyy>
+          <iyz>7.0639482370012499e-13</iyz>
+          <izz>5.1889171468805399e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_hand_end_collision'>
+        <pose>0.135 0 0.0015 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.003</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='left_hand_base_collision'>
+        <pose>0 0 0.0005 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0146</radius>
+            <length>0.005</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='left_hand_connection_collision'>
+        <pose>0.060122 0 0.0015 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.120244 0.027 0.003</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='left_hand_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/left_hand.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='left_hip_yaw' type='revolute'>
+      <pose>0 0 0 0 0 0</pose>
+      <parent>chest</parent>
+      <child>left_leg_yaw</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0347</damping>
+          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_leg_yaw'>
+      <pose>-0.044999999999999998 0.0133599999999985 -0.16994999999999999 0 0 0</pose>
+      <inertial>
+        <pose>2.79158363092336e-11 0.0032849786860274402 -0.029820774757243301 0 0 0</pose>
+        <mass>0.058662024462932297</mass>
+        <inertia>
+          <ixx>3.0496686582707501e-05</ixx>
+          <ixy>-8.4677743033588304e-14</ixy>
+          <ixz>8.5574380306308406e-14</ixz>
+          <iyy>1.16928645977672e-05</iyy>
+          <iyz>-9.4199503165967801e-08</iyz>
+          <izz>3.04113434807083e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_leg_yaw_collision'>
+        <pose>0 0.00515 -0.0225 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.041 0.0637 0.003</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='left_leg_yaw_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/left_leg_yaw.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='left_hip_roll' type='revolute'>
+      <pose>0 0 0 0 0 0</pose>
+      <parent>left_leg_yaw</parent>
+      <child>left_leg_roll</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0347</damping>
+          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_leg_roll'>
+      <pose>-0.044999999999999998 -0.015840000000001103 -0.22495000000000009 0 0 0</pose>
+      <inertial>
+        <pose>2.5451643078176801e-05 0.0109782278240607 -0.014084438514210301 0 0 0</pose>
+        <mass>0.17675216665704899</mass>
+        <inertia>
+          <ixx>6.1790335519862398e-05</ixx>
+          <ixy>-9.41308133856575e-10</ixy>
+          <ixz>-2.1169089800936899e-07</ixz>
+          <iyy>6.5889939337192494e-05</iyy>
+          <iyz>-2.14817110544029e-07</iyz>
+          <izz>3.9028076120466002e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_leg_roll_upper_collision'>
+        <pose>0 0.03065 -0.0181167 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0502 0.0643 0.0652552</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_roll_lower_collision'>
+        <pose>0 -0.03975 -0.0148385 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.028997 0.0035 0.0553928</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_roll_down_collision'>
+        <pose>0.0000137526 -0.019 -0.0175502 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0403884 0.038 0.0611006</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='left_leg_roll_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/left_leg_roll.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.313725501 0.313725501 0.313725501 1</diffuse>
+          <ambient>0.313725501 0.313725501 0.313725501 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='left_hip_pitch' type='revolute'>
+      <pose>-5.5511151231257827e-17 0 5.5511151231257827e-17 0 0 0</pose>
+      <parent>left_leg_roll</parent>
+      <child>left_leg_pitch</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>10</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0414</damping>
+          <friction>0.1179</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_leg_pitch'>
+      <pose>-0.0739996952292198 0.013359999999999796 -0.22481704657814128 -0.34059803684000522 1.5659322938814755 2.8009908920951405</pose>
+      <inertial>
+        <pose>0.037596773583596303 -1.1295629535890101e-10 -0.027981515122906 0 0 0</pose>
+        <mass>0.027887725075667901</mass>
+        <inertia>
+          <ixx>2.41537468742227e-06</ixx>
+          <ixy>3.2274965794789498e-14</ixy>
+          <ixz>4.7964487075471796e-12</ixz>
+          <iyy>1.14633756275734e-05</iyy>
+          <iyz>7.7934947477887403e-15</iyz>
+          <izz>1.3716039319153201e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_leg_pitch_big_collision'>
+        <pose>0.11475 0 -0.0289924 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0595 0.029 0.0459848</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_pitch_p_one0_collision'>
+        <pose>0.11195 0 -0.01275 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0651 0.029 0.0015</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_pitch_p_one1_collision'>
+        <pose>0.11195 0 -0.01275 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0539 0.0402 0.0015</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_pitch_p_two0_collision'>
+        <pose>0.11195 0 -0.04525 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0651 0.029 0.0015</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_pitch_p_two1_collision'>
+        <pose>0.11195 0 -0.04525 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0539 0.0402 0.0015</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='left_leg_pitch_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/left_leg_pitch.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941176474 0.941176474 0.941176474 1</diffuse>
+          <ambient>0.941176474 0.941176474 0.941176474 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='left_knee' type='revolute'>
+      <pose>5.5511151231257827e-17 -1.7347234759768071e-18 8.3266726846886741e-17 0 0 0</pose>
+      <parent>left_leg_pitch</parent>
+      <child>left_leg_knee</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>10</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0414</damping>
+          <friction>0.1179</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_leg_knee'>
+      <pose>-0.069095750341813339 0.01357122983996765 -0.35484072406226697 -0.3405980368399863 1.5659322938814983 2.8009908920951592</pose>
+      <inertial>
+        <pose>0.084360298558876695 -8.6736173798840404e-17 -0.024127643002784999 0 0 0</pose>
+        <mass>0.0328192125267944</mass>
+        <inertia>
+          <ixx>1.9489049933254499e-06</ixx>
+          <ixy>2.35500388345378e-20</ixy>
+          <ixz>-4.79645500496334e-12</ixz>
+          <iyy>4.3073341622455502e-05</iyy>
+          <iyz>9.3300803217153103e-22</iyz>
+          <izz>4.4968042537653101e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_leg_knee_collision0'>
+        <pose>0 0 -0.04975 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.014</radius>
+            <length>0.0055</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='left_leg_knee_collision1'>
+        <pose>0 0 0.003 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.014</radius>
+            <length>0.0055</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='left_leg_knee_collision2'>
+        <pose>0.13036 0 -0.04975 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.014</radius>
+            <length>0.0055</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='left_leg_knee_collision3'>
+        <pose>0.13036 0 0.003 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.014</radius>
+            <length>0.0055</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='left_leg_knee_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/left_leg_knee.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941176474 0.941176474 0.941176474 1</diffuse>
+          <ambient>0.941176474 0.941176474 0.941176474 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='left_ankle_pitch' type='revolute'>
+      <pose>0 0 -5.5511151231257827e-17 7.7605135090464654e-41 1.8323994442489063e-19 8.4703294725430034e-22</pose>
+      <parent>left_leg_knee</parent>
+      <child>left_leg_ankle</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>10</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0414</damping>
+          <friction>0.1179</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_leg_ankle'>
+      <pose>-0.069691747653051583 0.013782459679935433 -0.48483918624224237 0.0016248456377913945 0.0045846168142301309 1.0154675233220814e-14</pose>
+      <inertial>
+        <pose>0.023591474010887299 -0.016018144082549299 0.014279996378477801 0 0 0</pose>
+        <mass>0.173948205448793</mass>
+        <inertia>
+          <ixx>6.1525563546113303e-05</ixx>
+          <ixy>-4.3529887410332497e-11</ixy>
+          <ixz>1.07316479776985e-07</ixz>
+          <iyy>6.5767469559665899e-05</iyy>
+          <iyz>-1.9005632960375801e-07</iyz>
+          <izz>3.8828440030109099e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_leg_ankle_small_collision'>
+        <pose>0.0235076 -0.0435000 0.0147519 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0289848 0.041 0.0554962</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_ankle_small11_collision'>
+        <pose>0.0235000 -0.0582500 0.0175500 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0290000 0.0045 0.0611</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_ankle_small12_collision'>
+        <pose>0.0235000 -0.0582500 0.0175500 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0402 0.0045 0.0499</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_ankle_small21_collision'>
+        <pose>0.0235000 -0.0287388 0.0175500 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.029 0.0045 0.0611</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_ankle_small22_collision'>
+        <pose>0.0235000 -0.0287388 0.0175500 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0402 0.0045 0.0499</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_ankle_big_collision'>
+        <pose>0.0235000 0 0.01525 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.046 0.029 0.0595</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_ankle_big11_collision'>
+        <pose>0.03875 0 0.01805 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0035 0.029 0.0651</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_ankle_big12_collision'>
+        <pose>0.03875 0 0.01805 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0035 0.0402 0.0539</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_ankle_big21_collision'>
+        <pose>0.008 0 0.01805 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.003 0.029 0.0651</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_ankle_big22_collision'>
+        <pose>0.008 0 0.01805 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0035 0.0402 0.0539</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_leg_ankle_upper_collision'>
+        <pose>0.0235 0.02785 0.007 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.039 0.0027 0.03</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='left_leg_ankle_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/left_leg_ankle.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.367647082 0.367647082 0.367647082 1</diffuse>
+          <ambient>0.367647082 0.367647082 0.367647082 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='left_ankle_roll' type='revolute'>
+      <pose>-6.9388939039072284e-18 -6.9388939039072284e-18 -5.5511151231257827e-17 0 0 0</pose>
+      <parent>left_leg_ankle</parent>
+      <child>left_foot</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0347</damping>
+          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_foot'>
+      <pose>-0.046192512346412751 -0.055717448575796712 -0.48505984989530898 0.00162482856172556 1.210373038925275e-08 -7.4492554146810427e-06</pose>
+      <inertial>
+        <pose>-0.012987042423108899 0.068287744807163195 -0.035867822185710399 0 0 0</pose>
+        <mass>0.144176668751163</mass>
+        <inertia>
+          <ixx>0.00014149565462157499</ixx>
+          <ixy>-1.52740202739877e-09</ixy>
+          <ixz>1.9349728888557201e-07</ixz>
+          <iyy>5.0645258641957197e-05</iyy>
+          <iyz>-3.3396462913510601e-07</iyz>
+          <izz>0.000183700741709755</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_foot_box1_collision'>
+        <pose>-0.0161878 0.0660000 -0.0409262 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.09 0.126 0.016</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_foot_box2_collision'>
+        <pose>-0.0162106 0.0660228 -0.0409260 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0659544 0.149954 0.012</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_foot_box3_collision'>
+        <pose>-0.0161878 0.066 -0.0409262 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.087 0.147 0.006</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_foot_box4_collision'>
+        <pose>-0.0161725 0.141086 -0.0375890 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.09 0.00582764 0.0186744</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='left_foot_cylinder11_collision'>
+        <pose>0.0227063 0.1355 -0.0571185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.014</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='left_foot_cylinder12_collision'>
+        <pose>0.0227063 0.1355 -0.0471185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0055</radius>
+            <length>0.006</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='left_foot_cylinder21_collision'>
+        <pose>-0.0552928 0.1355 -0.0571185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.014</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='left_foot_cylinder22_collision'>
+        <pose>-0.0552928 0.1355 -0.0471185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0055</radius>
+            <length>0.006</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='left_foot_cylinder31_collision'>
+        <pose>0.0227063 -0.0035 -0.0571185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.014</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='left_foot_cylinder32_collision'>
+        <pose>0.0227063 -0.0035 -0.0471185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0055</radius>
+            <length>0.006</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='left_foot_cylinder41_collision'>
+        <pose>-0.0552928 -0.0035 -0.0571185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.014</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='left_foot_cylinder42_collision'>
+        <pose>-0.0552928 -0.0035 -0.0471185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0055</radius>
+            <length>0.006</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='left_foot_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/left_foot.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='head_yaw' type='revolute'>
+      <pose>0 0 0 0 0 0</pose>
+      <parent>chest</parent>
+      <child>neck</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0347</damping>
+          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='neck'>
+      <pose>0 0.0134 0.020750000000000046 0 0 0</pose>
+      <inertial>
+        <pose>-7.5807536161530796e-05 5.40612055642542e-09 0.026022869677138901 0 0 0</pose>
+        <mass>0.054959742050374599</mass>
+        <inertia>
+          <ixx>1.1553114985236599e-05</ixx>
+          <ixy>-6.3224562597767901e-12</ixy>
+          <ixz>1.10127762796851e-07</ixz>
+          <iyy>1.38245264991759e-05</iyy>
+          <iyz>-6.4352650730185303e-12</iyz>
+          <izz>1.0034260801326499e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='neck_collision1'>
+        <pose>0 0 0.0304 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0302 0.0356 0.0396</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='neck_collision2'>
+        <pose>0 0.0000272870 0.0331898 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0355 0.0243864 0.0451795</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='neck_collision3'>
+        <pose>0 0 0.0095 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0342 0.0355 0.015</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='neck_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/neck.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='head_pitch' type='revolute'>
+      <pose>-1.3877787807814457e-17 0 0 0 -4.5536491244391186e-18 0</pose>
+      <parent>neck</parent>
+      <child>head</child>
+      <axis>
+        <xyz>-4.5536491244391186e-18 0 1</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0347</damping>
+          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='head'>
+      <pose>-0.0187500000000007 0.013399999999999997 0.064549999999999996 1.570796326794897 -1.4912133887083963 -1.5707963267948872</pose>
+      <inertial>
+        <pose>0.051351626755169598 0.0053814322626007903 -0.0183017230128328 0 0 0</pose>
+        <mass>0.080370395509901299</mass>
+        <inertia>
+          <ixx>2.0782839377867802e-05</ixx>
+          <ixy>-5.7039686565431499e-07</ixy>
+          <ixz>-6.5737404978777497e-09</ixz>
+          <iyy>4.5624129183850597e-05</iyy>
+          <iyz>1.34009185452834e-08</iyz>
+          <izz>3.6502070438585903e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='head_collision1'>
+        <pose>0.0586628 0.00659088 -0.0185000 0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.0305397</radius>
+          </sphere>
+        </geometry>
+      </collision>
+      <collision name='head_collision2'>
+        <pose>0.0518199 0.00700583 -0.0185000 0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.0284086</radius>
+          </sphere>
+        </geometry>
+      </collision>
+      <collision name='head_collision3'>
+        <pose>0.0561952 -0.00401172 -0.0185000 0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.0349883</radius>
+          </sphere>
+        </geometry>
+      </collision>
+      <visual name='head_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/head.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='right_arm_upper' type='revolute'>
+      <pose>0 -1.7347234759768071e-18 0 0 0 0</pose>
+      <parent>chest</parent>
+      <child>right_arm</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>19.9718        
+        </limit>
+        <dynamics>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0347</damping>
+          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_arm'>
+      <pose>0.074700000000000003 0.0134 0 0 1.5707963267948966 0</pose>
+      <inertial>
+        <pose>0.080812383367974402 -0.0018713152163851499 0.029108149958475899 0 0 0</pose>
+        <mass>0.140880482426088</mass>
+        <inertia>
+          <ixx>2.0746461598375701e-05</ixx>
+          <ixy>3.0340088781543498e-07</ixy>
+          <ixz>-6.7417528894395102e-06</ixz>
+          <iyy>0.00012310039515784201</iyy>
+          <iyz>1.5929818113849301e-07</iyz>
+          <izz>0.00011999284945507099</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_arm_collision'>
+        <pose>0.0805 0 0.029 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1271 0.048 0.028</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='right_arm_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_arm.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='right_arm_lower' type='revolute'>
+      <pose>-2.7755575615628914e-17 -1.7347234759768071e-18 0 0 0 0</pose>
+      <parent>right_arm</parent>
+      <child>right_hand</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0347</damping>
+          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_hand'>
+      <pose>0.12724999999999992 0.0134 -0.13600000000000001 0 1.5707963267948966 0</pose>
+      <inertial>
+        <pose>0.063649150048299005 1.00372865470544e-08 -0.0016810551935546 0 0 0</pose>
+        <mass>0.024044269196268502</mass>
+        <inertia>
+          <ixx>1.94691318232501e-06</ixx>
+          <ixy>-1.9798400205047599e-12</ixy>
+          <ixz>1.70538796039851e-12</ixz>
+          <iyy>4.9981652993954097e-05</iyy>
+          <iyz>-7.0639482380154195e-13</iyz>
+          <izz>5.1889171468805501e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_hand_end_collision'>
+        <pose>0.135 0 -0.0015 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.003</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='right_hand_base_collision'>
+        <pose>0 0 -0.0025 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0146</radius>
+            <length>0.005</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='right_hand_connection_collision'>
+        <pose>0.060122 0 -0.0015 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.120244 0.027 0.003</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='right_hand_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_hand.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='right_hip_yaw' type='revolute'>
+      <pose>0 0 0 0 0 0</pose>
+      <parent>chest</parent>
+      <child>right_leg_yaw</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0347</damping>
+          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_leg_yaw'>
+      <pose>0.044999999999999998 0.0133599999999985 -0.16994999999999999 0 0 0</pose>
+      <inertial>
+        <pose>-3.3770200524862999e-10 0.0032849786860274502 -0.0298207747575896 0 0 0</pose>
+        <mass>0.0586620244629322</mass>
+        <inertia>
+          <ixx>3.0496686583123601e-05</ixx>
+          <ixy>-3.16154434574983e-14</ixy>
+          <ixz>-1.34169348176914e-13</ixz>
+          <iyy>1.16928645977672e-05</iyy>
+          <iyz>-9.4199503115753094e-08</iyz>
+          <izz>3.0411343480292098e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_leg_yaw_collision'>
+        <pose>0 0.00515 -0.0225 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.041 0.0637 0.003</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='right_leg_yaw_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_leg_yaw.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='right_hip_roll' type='revolute'>
+      <pose>0 0 -2.7755575615628914e-17 0 0 0</pose>
+      <parent>right_leg_yaw</parent>
+      <child>right_leg_roll</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0347</damping>
+          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_leg_roll'>
+      <pose>0.044999999999999998 -0.015840000000001103 -0.22495000000000009 0 -0.0064782638438862479 0</pose>
+      <inertial>
+        <pose>9.0022878971703093e-05 0.0109782278543254 -0.0140841738328886 0 0 0</pose>
+        <mass>0.176752167034151</mass>
+        <inertia>
+          <ixx>6.1791798147460997e-05</ixx>
+          <ixy>4.3532300340763102e-11</ixy>
+          <ixz>-1.07327270209975e-07</ixz>
+          <iyy>6.5889939430164294e-05</iyy>
+          <iyz>-2.14819182994814e-07</iyz>
+          <izz>3.9026613600567697e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_leg_roll_upper_collision'>
+        <pose>0 0.03065 -0.0181167 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0502 0.0643 0.0652552</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_roll_lower_collision'>
+        <pose>0 -0.03975 -0.0148385 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.028997 0.0035 0.0553928</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_roll_down_collision'>
+        <pose>0.0000137526 -0.019 -0.0175502 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0403884 0.038 0.0611006</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='right_leg_roll_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_leg_roll.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.313725501 0.313725501 0.313725501 1</diffuse>
+          <ambient>0.313725501 0.313725501 0.313725501 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='right_hip_pitch' type='revolute'>
+      <pose>2.7755575615628914e-17 1.7347234759768071e-18 -2.7755575615628914e-17 0 1.8970996919654565e-17 0</pose>
+      <parent>right_leg_roll</parent>
+      <child>right_leg_pitch</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>10</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0414</damping>
+          <friction>0.1179</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_leg_pitch'>
+      <pose>0.073999391467542294 0.013359999999998897 -0.22476213166260717 0.52685656042776574 1.5633017181137703 0.52686876709480446</pose>
+      <inertial>
+        <pose>0.037596773584000001 2.6198183206149698e-10 -0.030018484877093299 0 0 0</pose>
+        <mass>0.027887725075667901</mass>
+        <inertia>
+          <ixx>2.4153746871926199e-06</ixx>
+          <ixy>-7.4854894278663796e-14</ixy>
+          <ixz>-4.7964209833556204e-12</ixz>
+          <iyy>1.14633756278031e-05</iyy>
+          <iyz>1.8075310725767399e-14</iyz>
+          <izz>1.3716039319153301e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_leg_pitch_big_collision'>
+        <pose>0.11475 0 -0.0289924 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0595 0.029 0.0459848</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_pitch_p_one0_collision'>
+        <pose>0.11195 0 -0.01275 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0651 0.029 0.0015</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_pitch_p_one1_collision'>
+        <pose>0.11195 0 -0.01275 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0539 0.0402 0.0015</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_pitch_p_two0_collision'>
+        <pose>0.11195 0 -0.04525 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0651 0.029 0.0015</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_pitch_p_two1_collision'>
+        <pose>0.11195 0 -0.04525 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0539 0.0402 0.0015</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='right_leg_pitch_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_leg_pitch.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941176474 0.941176474 0.941176474 1</diffuse>
+          <ambient>0.941176474 0.941176474 0.941176474 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='right_knee' type='revolute'>
+      <pose>-1.1102230246251565e-16 1.7347234759768071e-18 2.7755575615628914e-17 0 1.8970996919654565e-17 0</pose>
+      <parent>right_leg_pitch</parent>
+      <child>right_leg_knee</child>
+      <axis>
+        <xyz>-1.8970996919654565e-17 0 -1</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>10</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0414</damping>
+          <friction>0.1179</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_leg_knee'>
+      <pose>0.069341669307871945 0.013849901482113449 -0.35479411088626256 0.52685656042784101 1.5633017181137998 0.52686876709487884</pose>
+      <inertial>
+        <pose>0.084360298558875405 -5.3776427755281001e-17 -0.022872356997215001 0 0 0</pose>
+        <mass>0.0328192125267944</mass>
+        <inertia>
+          <ixx>1.9489049933254499e-06</ixx>
+          <ixy>-1.4998438866811501e-20</ixy>
+          <ixz>4.7964550293966002e-12</ixz>
+          <iyy>4.3073341622455502e-05</iyy>
+          <iyz>4.6518569698450903e-22</iyz>
+          <izz>4.4968042537653101e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_leg_knee_collision0'>
+        <pose>0 0 -0.04975 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.014</radius>
+            <length>0.0055</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='right_leg_knee_collision1'>
+        <pose>0 0 0.003 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.014</radius>
+            <length>0.0055</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='right_leg_knee_collision2'>
+        <pose>0.13036 0 -0.04975 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.014</radius>
+            <length>0.0055</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='right_leg_knee_collision3'>
+        <pose>0.13036 0 0.003 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.014</radius>
+            <length>0.0055</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='right_leg_knee_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_leg_knee.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941176474 0.941176474 0.941176474 1</diffuse>
+          <ambient>0.941176474 0.941176474 0.941176474 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='right_ankle_pitch' type='revolute'>
+      <pose>1.3877787807814457e-17 -1.7347234759768071e-18 -1.1102230246251565e-16 0 -3.0097628332231954e-19 0</pose>
+      <parent>right_leg_knee</parent>
+      <child>right_leg_ankle</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>10</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0414</damping>
+          <friction>0.1179</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_leg_ankle'>
+      <pose>0.073283766686851243 0.014339802964228144 -0.4847703774305534 0.002388752305123388 -0.0064782638438853537 1.6015880881975643e-14</pose>
+      <inertial>
+        <pose>-0.026508525961580699 -0.016018144109070299 0.0142799963574565 0 0 0</pose>
+        <mass>0.17394820501059499</mass>
+        <inertia>
+          <ixx>6.1525563468979203e-05</ixx>
+          <ixy>-4.3542375080641399e-11</ixy>
+          <ixz>1.0731643525882001e-07</ixz>
+          <iyy>6.5767469449289794e-05</iyy>
+          <iyz>-1.90056299790816e-07</iyz>
+          <izz>3.8828439931667398e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_leg_ankle_small_collision'>
+        <pose>-0.0266076 -0.0435000 0.0147519 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0289848 0.041 0.0554962</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_ankle_small11_collision'>
+        <pose>-0.0266 -0.0582500 0.0175500 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0290000 0.0045 0.0611</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_ankle_small12_collision'>
+        <pose>-0.0266 -0.0582500 0.0175500 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0402 0.0045 0.0499</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_ankle_small21_collision'>
+        <pose>-0.0266 -0.0287388 0.0175500 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.029 0.0045 0.0611</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_ankle_small22_collision'>
+        <pose>-0.0266 -0.0287388 0.0175500 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0402 0.0045 0.0499</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_ankle_big_collision'>
+        <pose>-0.0266 0 0.01525 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.046 0.029 0.0595</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_ankle_big11_collision'>
+        <pose>-0.04185 0 0.01805 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0035 0.029 0.0651</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_ankle_big12_collision'>
+        <pose>-0.04185 0 0.01805 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0035 0.0402 0.0539</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_ankle_big21_collision'>
+        <pose>-0.0111 0 0.01805 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.003 0.029 0.0651</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_ankle_big22_collision'>
+        <pose>-0.0111 0 0.01805 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0035 0.0402 0.0539</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_leg_ankle_upper_collision'>
+        <pose>-0.0266 0.02785 0.007 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.039 0.0027 0.03</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='right_leg_ankle_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_leg_ankle.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <joint name='right_ankle_roll' type='revolute'>
+      <pose>0 0 -5.5511151231257827e-17 0 -3.0097628332231954e-19 0</pose>
+      <parent>right_leg_ankle</parent>
+      <child>right_foot</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.0347</damping>
+          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_foot'>
+      <pose>0.046685400359711332 -0.055159998747585981 -0.48510871268708705 0.0023887523051233871 -0.006478263843885365 1.6014496801096448e-14</pose>
+      <inertial>
+        <pose>0.012889344838027599 0.068349573591404394 -0.036000558661549199 0 0 0</pose>
+        <mass>0.14342863960313501</mass>
+        <inertia>
+          <ixx>0.00014133738462663599</ixx>
+          <ixy>3.7013888509899199e-12</ixy>
+          <ixz>-2.0333584432894299e-12</ixz>
+          <iyy>5.0459643793834899e-05</iyy>
+          <iyz>-3.2037887084776298e-07</iyz>
+          <izz>0.000183618491010819</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_foot_box1_collision'>
+        <pose>-0.0161878 0.0660000 -0.0409262 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.09 0.126 0.016</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_foot_box2_collision'>
+        <pose>-0.0162106 0.0660228 -0.0409260 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0659544 0.149954 0.012</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_foot_box3_collision'>
+        <pose>-0.0161878 0.066 -0.0409262 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.087 0.147 0.006</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_foot_box4_collision'>
+        <pose>-0.0161725 0.141086 -0.0375890 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.09 0.00582764 0.0186744</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='right_foot_cylinder11_collision'>
+        <pose>0.0227063 0.1355 -0.0571185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.014</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='right_foot_cylinder12_collision'>
+        <pose>0.0227063 0.1355 -0.0471185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0055</radius>
+            <length>0.006</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='right_foot_cylinder21_collision'>
+        <pose>-0.0552928 0.1355 -0.0571185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.014</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='right_foot_cylinder22_collision'>
+        <pose>-0.0552928 0.1355 -0.0471185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0055</radius>
+            <length>0.006</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='right_foot_cylinder31_collision'>
+        <pose>0.0227063 -0.0035 -0.0571185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.014</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='right_foot_cylinder32_collision'>
+        <pose>0.0227063 -0.0035 -0.0471185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0055</radius>
+            <length>0.006</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='right_foot_cylinder41_collision'>
+        <pose>-0.0552928 -0.0035 -0.0571185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.014</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='right_foot_cylinder42_collision'>
+        <pose>-0.0552928 -0.0035 -0.0471185 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0055</radius>
+            <length>0.006</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='right_foot_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_foot.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <enable_wind>false</enable_wind>
+    </link>
+    <pose>0 0 0.08 1.570796327 0 0</pose>
+    <static>false</static>
+    <self_collide>true</self_collide>
+    <plugin filename="ZJUDancer"
+      name="gz::sim::systems::motion_controller">
+        <p_gain>40</p_gain>
+        <i_gain>0</i_gain>
+        <d_gain>0.04</d_gain>
+        <i_max>1</i_max>
+        <i_min>-1</i_min>
+        <cmd_max>1000</cmd_max>
+        <cmd_min>-1000</cmd_min>
+    </plugin>
+  </model>
+</sdf>

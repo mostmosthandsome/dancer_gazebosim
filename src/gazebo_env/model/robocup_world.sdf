@@ -1,0 +1,684 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="robocup_field">
+    <light name='sun' type='directional'>
+      <pose>0 0 10 0 0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>-0.5 0.10000000000000001 -0.90000000000000002</direction>
+      <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+      <specular>0.200000003 0.200000003 0.200000003 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <linear>0.01</linear>
+        <constant>0.90000000000000002</constant>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <model name="RoboCup 09 SPL Field">
+      <static>true</static>
+      <link name="field">
+        <pose>0 0 0.01 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>7.40 5.40</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>2000</mu>
+                <mu2>2000</mu2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>100</kp>
+                <kd>200</kd>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="carpet">
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>7.40 5.40</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+            <shininess>12.5</shininess>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/carpet.jpg</albedo_map>
+                <normal_map>materials/textures/carpet.jpg</normal_map>
+                <metalness>0</metalness>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <visual name="sideline_1">
+          <pose>0 2 0.011 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>6.05 0.05</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="sideline_2">
+          <pose>0 -2 0.011 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>6.05 0.05</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="endline_1">
+          <pose>-3 0 0.011 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>0.05 4.05</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="endline_2">
+          <pose>3 0 0.011 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>0.05 4.05</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="halfway_line">
+          <pose>0 0 0.011 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>0.05 4.05</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="area_1_line_y">
+          <pose>-2.40 0 0.011 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>0.05 3</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="area_2_line_y">
+          <pose>-2.70 1.50 0.011 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>0.65 0.05</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="area_3_line_y">
+          <pose>-2.70 -1.50 0.011 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>0.65 0.05</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="area_1_line_b">
+          <pose>2.40 0 0.011 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>0.05 3</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="area_2_line_b">
+          <pose>2.70 1.50 0.011 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>0.65 0.05</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="area_3_line_b">
+          <pose>2.70 -1.50 0.011 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>0.65 0.05</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="penalty_b">
+          <pose>-1.20 0 0.01 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <cylinder>
+              <radius>0.05</radius>
+              <length>0.0005</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="penalty_y">
+          <pose>1.20 0 0.01 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <cylinder>
+              <radius>0.05</radius>
+              <length>0.0005</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="center_point">
+          <pose>0 0 0.01 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <cylinder>
+              <radius>0.05</radius>
+              <length>0.0005</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+        <visual name="center_circle">
+          <pose>0 0 -0.01 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <mesh>
+              <scale>1 1 0.75</scale>
+              <uri>meshes/circle.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+      </link>
+      <link name="left_post_y">
+        <pose>-3 0.7 0.41 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.05</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.05</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9725 0.9529 0.2078 1</ambient>
+            <diffuse>0.9725 0.9529 0.2078 1</diffuse>
+            <specular>0.9725 0.9529 0.2078 1</specular>
+            <shininess>1</shininess>
+          </material>
+        </visual>
+      </link>
+      <link name="left_support_triangle_y">
+        <pose>-3.043 -0.7 0.01 0 0 -1.5708</pose>
+        <collision name="collision">
+          <geometry>
+            <mesh>
+              <scale>0.41 0.41 0.41</scale>
+              <uri>meshes/triangle.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <scale>0.41 0.41 0.41</scale>
+              <uri>meshes/triangle.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+      </link>
+      <link name="right_post_y">
+        <pose>-3 -0.7 0.41 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.05</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.05</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9725 0.9529 0.2078 1</ambient>
+            <diffuse>0.9725 0.9529 0.2078 1</diffuse>
+            <specular>0.9725 0.9529 0.2078 1</specular>
+            <shininess>1</shininess>
+          </material>
+        </visual>
+      </link>
+      <link name="right_support_triangle_y">
+        <pose>-3.043 0.7 0.01 0 0 -1.5708</pose>
+        <collision name="collision">
+          <geometry>
+            <mesh>
+              <scale>0.41 0.41 0.41</scale>
+              <uri>meshes/triangle.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <scale>0.41 0.41 0.41</scale>
+              <uri>meshes/triangle.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+      </link>
+      <link name="crossbar_y">
+        <pose>-3 0 0.785 1.5708 1.5708 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>1.4</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>1.4</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9725 0.9529 0.2078 1</ambient>
+            <diffuse>0.9725 0.9529 0.2078 1</diffuse>
+            <specular>0.9725 0.9529 0.2078 1</specular>
+            <shininess>1</shininess>
+          </material>
+        </visual>
+      </link>
+      <link name="net_y_upper">
+        <pose>-3.055 0 0.610 0 1.5708 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.395 1.4 0.01</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.395 1.4 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+            <shininess>12.5</shininess>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/net.png</albedo_map>
+                <normal_map>materials/textures/net.png</normal_map>
+                <metalness>0</metalness>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name="net_y_lower">
+        <pose>-3.25 0 0.22 0 -0.785 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.55 1.4 0.01</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.55 1.4 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+            <shininess>12.5</shininess>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/net.png</albedo_map>
+                <normal_map>materials/textures/net.png</normal_map>
+                <metalness>0</metalness>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name="left_post_b">
+        <pose>3 0.7 0.4 0.01 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.05</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.05</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.13 0.44 0.70</ambient>
+            <diffuse>0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>1</shininess>
+          </material>
+        </visual>
+      </link>
+      <link name="left_support_triangle_b">
+        <pose>3.043 -0.7 0.01 0 0 1.5708</pose>
+        <collision name="collision">
+          <geometry>
+            <mesh>
+              <scale>0.41 0.41 0.41</scale>
+              <uri>meshes/triangle.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <scale>0.41 0.41 0.41</scale>
+              <uri>meshes/triangle.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+      </link>
+      <link name="right_post_b">
+        <pose>3 -0.7 0.41 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.05</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.05</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.13 0.44 0.70</ambient>
+            <diffuse>0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>1</shininess>
+          </material>
+        </visual>
+      </link>
+      <link name="right_support_triangle_b">
+        <pose>3.043 0.7 0.01 0 0 1.5708</pose>
+        <collision name="collision">
+          <geometry>
+            <mesh>
+              <scale>0.41 0.41 0.41</scale>
+              <uri>meshes/triangle.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <scale>0.41 0.41 0.41</scale>
+              <uri>meshes/triangle.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>128</shininess>
+          </material>
+        </visual>
+      </link>
+      <link name="crossbar_b">
+        <pose>3 0 0.785 1.5708 1.5708 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>1.4</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>1.4</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.13 0.44 0.70</ambient>
+            <diffuse>0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <shininess>1</shininess>
+          </material>
+        </visual>
+      </link>
+      <link name="net_b_upper">
+        <pose>3.055 0 0.610 0 1.5708 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.395 1.4 0.01</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.395 1.4 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+            <shininess>12.5</shininess>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/net.png</albedo_map>
+                <normal_map>materials/textures/net.png</normal_map>
+                <metalness>0</metalness>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name="net_b_lower">
+        <pose>3.25 0 0.22 0 0.785 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.55 1.4 0.01</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.55 1.4 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+            <shininess>12.5</shininess>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/net.png</albedo_map>
+                <normal_map>materials/textures/net.png</normal_map>
+                <metalness>0</metalness>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+  </world>
+</sdf>

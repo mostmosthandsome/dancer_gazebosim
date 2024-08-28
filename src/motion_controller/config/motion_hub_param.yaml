@@ -1,0 +1,85 @@
+/parameter_server:
+    ros__parameters:
+        dmotion:
+            OneFootLanding:
+                upbody_constant_roll: 0.0
+                upbody_constant_pitch: 0.28
+                ankle_offset_x: 0.5
+                ankle_offset_y: 0.0
+                ankle_offset_z: 10.5
+                body_center_x: 2.5
+                body_center_y: 0.0
+                body_center_z: -2.4
+                upbody_mass: 3158.0
+                foot_mass: 877.0
+                upper_leg_length: 12.3
+                lower_leg_length: 12.0
+                ankle_from_ground: 6.0
+                half_hip_width : 4.5
+                hip_x_from_origin: 0.0
+                hip_z_from_origin: 8.0
+            PendulumWalk:
+                no_yu_zu: false
+                ankle_dis: 15.0 
+                tao: 0.33  #0.33
+                tick_num: 33  #33
+                com_h: 37   #37.0
+                acc_coef_x: 0.15
+                acc_coef_y: 0.3
+                com_height: 27.0
+                y_half_amplitude: 3.0
+                com_x_offset: 0.6 #yuanlai2.6 
+                com_y_offset: 1.25
+                turning_error: 2.0
+                slow_down_minus_x: 3.0
+                slow_down_minus_y: 1.5
+                slow_down_minus_yaw: 8.0
+                max_step_x: 9.0
+                max_step_y_out: 3.5
+                max_step_y_in: 2.0
+                max_step_yaw: 15.0
+                max_step_differ_x: 2.0
+                max_step_differ_y: 0.7
+                max_step_differ_yaw: 10.0
+                generate_rotate_speed: 15.0
+                nobrain_angle_tolerance: 30
+            ThreeInterpolation:
+                default_point_interval: 10.0
+                default_boundary_slope: 1.0
+            Climb:
+                whole_time: 0.5
+                not_leg_only_number: 17
+            Kick:
+                # right_kick_x: -15.0
+                # right_kick_y: 7.0
+                right_kick_x: -30.0
+                right_kick_y: 14.0
+                right_kick_files: "/home/ubuntu/dancer-workspace/workspaces/core/src/dconfig/3/dmotion/"
+            Status:
+                adjust_max_x: 4
+                adjust_max_y: 2.5
+                adjust_max_yaw: 10
+                adjust_max_step_num: 8
+                action_confirmation_num: 2
+                turn_tolerance: 35
+                step_yaw_tolerance: 10
+                LADT: 110
+                correct_k: 0.3
+                correct_y_k: 7
+                shit_rob_radius: 18.5
+                start_mix_distance: 300
+                one_step_y_out: 6
+                one_step_y_in: 3
+                stop_walk_dis: 45
+                dx_delta: 1.3
+                dyaw_delta: 6
+                panball_x: 1.5
+                uparm_angle: 0.0
+                lowarm_angle: 175.0
+                backward_step_length: -3
+                #LAAT_for_ball: 20
+                #LADT_for_ball: 40
+                LAAT_for_ball: 20
+                LADT_for_ball: 20
+                back_climb_speed: 2
+                forward_climb_speed: 2
