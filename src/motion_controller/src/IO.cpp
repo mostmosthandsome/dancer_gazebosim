@@ -6,6 +6,7 @@
 #include "gz/sim/components/JointForceCmd.hh"
 #include "gz/sim/components/JointPosition.hh"
 #include "gz/sim/components/Name.hh"
+#include "gz/sim/Util.hh"
 
 using namespace gz;
 using namespace sim;
@@ -14,6 +15,9 @@ using namespace zjudancer;
 
 class gz::sim::systems::zjudancer::IOPrivate
 {
+public:
+    void UpdateOdometry(const gz::sim::UpdateInfo &_info,    const gz::sim::EntityComponentManager &_ecm);
+
     /// \brief Joint Entity
     public: std::vector<Entity> jointEntities;
 
@@ -28,6 +32,11 @@ class gz::sim::systems::zjudancer::IOPrivate
 
     /// \brief Position PID controller.
     public: std::vector< math::PID > posPid;
+
+    /// \brief 允许特定的xyz和rpy的offset， 加在里程计偏置上
+    public: gz::math::Pose3d offset = {0, 0, 0, 0, 0, 0};
+
+    public: gz::math::Pose3d current_pose = {0, 0, 0, 0, 0, 0};
 };
 
 IO::IO():dataPtr(std::make_unique<IOPrivate>()),joint_number(0)
@@ -136,4 +145,27 @@ void IO::ServoControl(std::vector<double> servo_angles, const gz::sim::UpdateInf
     }
     // gzmsg << str <<  std::endl;
     
+}
+
+
+void IO::update_observation(const gz::sim::UpdateInfo &_info,    const gz::sim::EntityComponentManager &_ecm)
+{
+    this->dataPtr->UpdateOdometry(_info,_ecm);
+}
+
+std::vector<double> IO::get_robot_global()
+{
+    std::vector<double> robot_global;
+    robot_global.push_back(this->dataPtr->current_pose.Pos().X());
+    robot_global.push_back(this->dataPtr->current_pose.Pos().Y());
+    robot_global.push_back(this->dataPtr->current_pose.Rot().Yaw() + M_PI / 2);
+    return robot_global;
+}
+
+/////////////////////////////////
+
+void IOPrivate::UpdateOdometry(const gz::sim::UpdateInfo &_info,    const gz::sim::EntityComponentManager &_ecm)
+{
+    const math::Pose3d rawPose = worldPose(this->model.Entity(), _ecm);
+    this->current_pose = rawPose * this->offset;
 }

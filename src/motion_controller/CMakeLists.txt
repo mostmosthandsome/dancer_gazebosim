@@ -23,6 +23,7 @@ set(ZJUDANCER_CXX_SOURCES
   src/InverseKinematics.cpp
   src/OneFootLanding.cpp
   src/ThreeInterpolation.cpp
+  src/PendulumWalk.cpp
  )
 
 add_library(ZJUDancer SHARED ${ZJUDANCER_CXX_SOURCES})

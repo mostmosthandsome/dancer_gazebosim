@@ -17,22 +17,20 @@ namespace systems
 namespace zjudancer
 {
   /**
-   * @brief 用来真正和存储信息的类
+   * @brief 包装类，防止接口暴露
    */
   class IOPrivate;
 
   /**
-   * 用来计算位控算法的类
+   * @brief 专门用来和仿真交互的类，可以获取传感器信息，也可以用来控制关节
    */
   class IO
   {
   public:
-    /**
-     * @brief 构造函数
-     */
     IO();
     ~IO();
 
+  public:
     /**
      * @brief 预处理函数
      * @param _entity 
@@ -46,6 +44,20 @@ namespace zjudancer
      * @param _ecm 仿真系统的句柄
      */
     void ServoControl(std::vector<double> servo_angles, const gz::sim::UpdateInfo &_info,gz::sim::EntityComponentManager &_ecm);
+
+    /**
+     * @brief 用来更新传感的信息
+     * 
+     */
+    void update_observation(const gz::sim::UpdateInfo &_info,    const gz::sim::EntityComponentManager &_ecm);
+
+    /**
+     * 获取机器人当前所在位置的x,y,yaw(坐标系待定)
+     */
+    std::vector<double> get_robot_global();
+
+
+  public:
     /// @brief 期望给的命令里关节的顺序
     std::vector<std::string> joint_order = {
       "left_hip_yaw",   "left_hip_roll",  "left_hip_pitch",   "left_knee",        "left_ankle_pitch",   "left_ankle_roll",

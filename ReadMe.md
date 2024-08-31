@@ -9,8 +9,14 @@ cmake -B build
 cmake --build build
 
 # 如何运行
-找到build文件夹
 ```bash
-export GZ_SIM_SYSTEM_PLUGIN_PATH=build文件夹(`pwd`/build/motion_controller)
+cd到sim文件夹下
+export GZ_SIM_SYSTEM_PLUGIN_PATH=`pwd`/build/motion_controller
+. install/setup.bash 
+ros2 launch gazebo_env env.launch.py 
 
 ```
+
+## 其他
+![alt text](<截图 2024-08-29 11-10-01.png>)
+场地如图所示，横向为x轴，纵向为y轴，圆点位于场地正中央
