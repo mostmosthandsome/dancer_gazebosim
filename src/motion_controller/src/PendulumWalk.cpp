@@ -7,7 +7,7 @@ using namespace dmotion;
 namespace dmotion
 {
 
-PendulumWalk::PendulumWalk(std::shared_ptr<Parameters> param,rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr publisher, rclcpp::Rate *loop_rate) : pbr(publisher), lopr(loop_rate),parameters(param)
+PendulumWalk::PendulumWalk(std::shared_ptr< std::queue< std::vector<double> > > _action_list,std::shared_ptr<Parameters> param) : parameters(param),action_list(_action_list)
 {
     com_ac_x = 0;
     com_ac_y = 0;
@@ -20,7 +20,7 @@ PendulumWalk::PendulumWalk(std::shared_ptr<Parameters> param,rclcpp::Publisher<s
     last_rpy.resize(3);
 }
 
-PendulumWalk::PendulumWalk(std::shared_ptr<Parameters> param,rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr publisher, rclcpp::Rate *loop_rate, const double &unusual_ankle_dis) : pbr(publisher), lopr(loop_rate), parameters(param)
+PendulumWalk::PendulumWalk(std::shared_ptr< std::queue< std::vector<double> > > _action_list, std::shared_ptr<Parameters> param, const double &unusual_ankle_dis) : parameters(param),action_list(_action_list)
 {
     com_ac_x = 0;
     com_ac_y = 0;
@@ -113,7 +113,6 @@ void PendulumWalk::GiveAStep(double dx, double dy, double d_yaw)
     // cout << "线性规划上半身yaw "<< endl;
     // com_yaw.CalculatePoints(10);
     comYaw = com_yaw.GetPoints();
-    std::cout << "comYaw :" << std::endl;
     //        PrintVector(comYaw);
 
     //线性规划质心的y基础位置
@@ -250,21 +249,15 @@ void PendulumWalk::GiveATick()
     tick_num++;
 
     parameters->support_phase = (SupportPhase)((int)support_is_right);
-    joint_queue.push_back(Support->GetOneStep(tmptick.hang_foot, tmptick.whole_com, tmptick.upbody_pose));
+    auto action = Support->GetOneStep(tmptick.hang_foot, tmptick.whole_com, tmptick.upbody_pose);
+    PrintVector(action);
+    action_list->push(action);
 }
 
-std::vector< std::vector<double> > PendulumWalk::GiveAStepTick(gait_element now_gait)
+void PendulumWalk::GiveAStepTick(gait_element now_gait)
 {
-    // cout << "gait_label: " << now_gait.label << "\t"
-    //      << "gait_foot_is_right: " << now_gait.isRight << endl;
-    // cout << "************************************" << endl;
-    // cout << "real_foot_is_right: " << support_is_right << endl;
-    // cout << "************************************" << endl;
-    // bool adjust_flag = !USE_WALK_FEEDBACK ; // if true, then don't adjust
-    joint_queue.clear();
     GiveAStep(now_gait.x, now_gait.y, now_gait.t);
     for (int j = 0; j < parameters->pendulum_walk_param.TICK_NUM; j++)     parameters->stp.cur_state.index = j,GiveATick(); // after this, cur_servo_angles update
-    return joint_queue;
 }
 
 bool PendulumWalk::CheckWillFall()
@@ -452,102 +445,7 @@ bool PendulumWalk::AdjustFoothold(double dx, double dy, double d_yaw)
 }
 
 
-/** 
- * 用于任意坐标系下两步相对于机器人GiveAStep参数的生成，这里使用了比较输入为世界坐标系下的<x,y,yaw>起点与终点
- * 输出为相对于此时机器人的位置下一步参数,可以用于GiveAStep
- * 
- * */
-vector<double> OneStepTransform(double global_start_x, double global_start_y, double global_start_yaw, double global_end_x, double global_end_y, double global_end_yaw)
-{
-    double start_x = global_start_x;
-    double start_y = global_start_y;
-    double end_x = global_end_x; //限制x范围
-    double end_y = global_end_y; //限制y范围
-    double start_angle = AdjustDegRange2(global_start_yaw);
-    double end_angle = (abs(AdjustDegRange2(global_end_yaw - start_angle)) > 25) ? ((sign(AdjustDegRange2(global_end_yaw - start_angle))) * 25 + start_angle) : AdjustDegRange2(global_end_yaw);
-    cout << "start_x: " << start_x << "start_y" << start_y << "start_angle" << start_angle << endl;
-    cout << "end_x: " << end_x << "edn_y" << end_y << "end_angle" << end_angle << endl;
-    double result_angle = AdjustDegRange2(end_angle - start_angle);
 
-    start_angle = Deg2Rad(start_angle);
-    end_angle = Deg2Rad(end_angle);
-
-    //转换成机器人坐标系
-    double result_x = end_x * cos(start_angle) - start_x * cos(start_angle) + end_y * sin(start_angle) -
-                      start_y * sin(start_angle);
-    double result_y = end_y * cos(start_angle) - start_y * cos(start_angle) - end_x * sin(start_angle) +
-                      start_x * sin(start_angle);
-
-
-
-    result_x = (abs(result_x) > 8) ? (sign(result_x) * 8) : result_x;
-    result_y = (abs(result_y) > 4) ? (sign(result_y) * 4) : result_y;
-    vector<double> result_array = {result_x, result_y, result_angle};
-    return result_array;
-}
-
-void PendulumWalk::LittleAdjust(double start_x, double start_y, double start_angle, double end_x, double end_y, double end_angle)//给定坐标系不一定是机器人坐标系
-{
-    vector<double> angle_sequence;
-    vector<double> x_sequence;
-    vector<double> y_sequence;
-    vector<double> aim_field;
-    int adjust_step_num;
-
-    double error_angle = AdjustDegRange2(end_angle - start_angle);
-    cout << "little adjust error_angle : " << error_angle << endl;
-    start_angle = Deg2Rad(start_angle);
-    end_angle = Deg2Rad(end_angle);
-    //先转换为机器人坐标系
-    aim_field.push_back((end_x  - start_x)* cos(start_angle) + (end_y - start_y)  * sin(start_angle) );
-    aim_field.push_back( (end_y - start_y) * cos(start_angle) - (end_x - start_x) * sin(start_angle));
-    aim_field.push_back(error_angle);
-    //以下建议写成max形式
-    adjust_step_num = (int)(abs(aim_field[0]) / parameters->stp.adjust_max_x + 1);
-    adjust_step_num = ((int)(abs(aim_field[1]) / parameters->stp.adjust_max_y + 1) > adjust_step_num) ? ((int)(abs(aim_field[1]) / parameters->stp.adjust_max_y + 1)) : (adjust_step_num);
-    adjust_step_num = ((int)(abs(aim_field[2]) / parameters->stp.adjust_max_yaw + 1) > adjust_step_num) ? ((int)(abs(aim_field[2]) / parameters->stp.adjust_max_yaw + 1)) : (adjust_step_num);
-    
-    angle_sequence.push_back(0);
-    angle_sequence.push_back(aim_field[2] / 2.0 / adjust_step_num);
-    x_sequence.push_back(0);
-    x_sequence.push_back(aim_field[0] / 2.0 / adjust_step_num);
-    y_sequence.push_back(0);
-    y_sequence.push_back(aim_field[1] / 2.0 / adjust_step_num);
-    for (int i = 0; i < adjust_step_num - 1; i++)
-    {
-        angle_sequence.push_back(aim_field[2] / adjust_step_num + angle_sequence[i + 1]);
-        x_sequence.push_back(aim_field[0] / adjust_step_num + x_sequence[i + 1]);
-        y_sequence.push_back(aim_field[1] / adjust_step_num + y_sequence[i + 1]);
-    }
-    angle_sequence.push_back(aim_field[2] / 2.0 / adjust_step_num + angle_sequence[adjust_step_num]);
-    x_sequence.push_back(aim_field[0] / 2.0 / adjust_step_num + x_sequence[adjust_step_num]);
-    y_sequence.push_back(aim_field[1] / 2.0 / adjust_step_num + y_sequence[adjust_step_num]);
-
-    for (unsigned i = 0; i < x_sequence.size() - 1; i++)
-    {
-        if (i < parameters->stp.adjust_max_step_num)
-        {
-            vector<double> adjust_step = OneStepTransform(x_sequence[i], y_sequence[i], angle_sequence[i],
-                                                          x_sequence[i + 1], y_sequence[i + 1], angle_sequence[i + 1]);
-            parameters->stp.tmp_gait.x = adjust_step[0];
-            parameters->stp.tmp_gait.y = adjust_step[1];
-            parameters->stp.tmp_gait.t = adjust_step[2];
-            parameters->stp.tmp_gait.isRight = !parameters->stp.tmp_gait.isRight;
-            parameters->stp.tmp_gait.label = "LittleAdjust";
-            parameters->stp.gait_queue.push_back(parameters->stp.tmp_gait);
-        }
-        else
-        {
-            break;
-        }
-    }
-    parameters->stp.tmp_gait.x = 0;
-    parameters->stp.tmp_gait.y = 0;
-    parameters->stp.tmp_gait.t = 0;
-    parameters->stp.tmp_gait.isRight = !parameters->stp.tmp_gait.isRight;
-    parameters->stp.tmp_gait.label = "LittleAdjust";
-    parameters->stp.gait_queue.push_back(parameters->stp.tmp_gait);
-}
 
 void PendulumWalk::TurnAround(double angle)
 {
@@ -622,225 +520,7 @@ vector<double> PendulumWalk::CalculateTurnSequence(double turn_angle)
     return result_sequence;
 }
 
-void PendulumWalk::SlowDown()//匀速减少
-{
-    parameters->stp.gait_queue.clear();
-    double slow_init_x = parameters->stp.last_gait.x;
-    double slow_init_y = parameters->stp.last_gait.y;
-    double slow_init_yaw = parameters->stp.last_gait.t;
-    //取次数a = max([x/dx],[y/dy],[t/dt]) + 1
-    int a = abs(slow_init_x) / parameters->pendulum_walk_param.slow_down_minus_x;
-    a = (abs(slow_init_y) / parameters->pendulum_walk_param.slow_down_minus_y > a) ? (abs(slow_init_y) / parameters->pendulum_walk_param.slow_down_minus_y) : (a);
-    a = (abs(slow_init_yaw) / parameters->pendulum_walk_param.slow_down_minus_yaw > a) ? (abs(slow_init_yaw) / parameters->pendulum_walk_param.slow_down_minus_yaw) : (a);
-    a = a + 1;
 
-    for (int i = 0; i < a; i++)
-    {
-        parameters->stp.tmp_gait.x = slow_init_x * (a - i - 1) / a;
-        parameters->stp.tmp_gait.y = slow_init_y * (a - i - 1) / a;
-        parameters->stp.tmp_gait.t = slow_init_yaw * (a - i - 1) / a;
-        parameters->stp.tmp_gait.isRight = !parameters->stp.tmp_gait.isRight;
-        parameters->stp.tmp_gait.label = "SlowDown";
-        parameters->stp.gait_queue.push_back(parameters->stp.tmp_gait);
-    }
-}
-
-/**
- * aim_field_angle是目标点方向相对于现在自己面对的方向的角度差,需要是-180度到180度之间的值
- * last_gait_element 上一步的数据
- * */
-gait_element PendulumWalk::GenerateNewGait(double aim_field_angle, gait_element last_gait_element, double error_aim_angle)
-{
-    gait_element result_gait;
-    aim_field_angle = AdjustDegRange2(aim_field_angle); //调整aim_field_angle的范围
-
-    bool this_is_right = !last_gait_element.isRight; //这一步的迈步脚应与上一步不同
-    //先获得希望速度方向和最大速度四边形边界的交点
-    double hope_x, hope_y;
-    double x_cut, y_cut; //速度边界大菱形的目标方向的边界直线x、y轴截距
-    aim_field_angle = AdjustDegRange2(aim_field_angle);
-    aim_field_angle = Deg2Rad(aim_field_angle);
-
-    // FIXME: DONT use == for double/float type(check like `abs(num-target) < .0001)
-    if (aim_field_angle == 0)
-    {
-        hope_x = parameters->pendulum_walk_param.max_step_x;
-        hope_y = 0;
-    }
-    else if (aim_field_angle == M_PI / 2)
-    {
-        hope_x = 0;
-        hope_y = ((this_is_right) ? (parameters->pendulum_walk_param.max_step_y_in) : (parameters->pendulum_walk_param.max_step_y_out));
-    }
-    else if (aim_field_angle == -M_PI / 2)
-    {
-        hope_x = 0;
-        hope_y = ((this_is_right) ? (-parameters->pendulum_walk_param.max_step_y_out) : (-parameters->pendulum_walk_param.max_step_y_in));
-    }
-    else if (aim_field_angle == M_PI || aim_field_angle == -M_PI)
-    {
-        hope_x = -parameters->pendulum_walk_param.max_step_x;
-        hope_y = 0;
-    }
-    else
-    {
-        y_cut = ((this_is_right) ? ((sign(aim_field_angle) > 0) ? (parameters->pendulum_walk_param.max_step_y_in) : (-parameters->pendulum_walk_param.max_step_y_out)) : ((sign(aim_field_angle) > 0) ? (parameters->pendulum_walk_param.max_step_y_out) : (-parameters->pendulum_walk_param.max_step_y_in)));
-        x_cut = sign(cos(aim_field_angle)) * parameters->pendulum_walk_param.max_step_x;
-        hope_x = y_cut / (tan(aim_field_angle) + y_cut / x_cut);
-        hope_y = tan(aim_field_angle) * hope_x;
-    }
-
-    //计算hope速度与上一步的速度差
-    double error_x = hope_x - last_gait_element.x;
-    double error_y = hope_y - last_gait_element.y;
-    double error_direction = Atan(error_y, error_x);
-    //计算速度改变引导下的未校验大小的速度
-    double changed_x, changed_y;
-    if (error_direction == 0)
-    {
-        changed_x = parameters->pendulum_walk_param.max_step_differ_x;
-        changed_y = 0;
-    }
-    else if (error_direction == M_PI / 2 || error_direction == -M_PI / 2)
-    {
-        changed_x = 0;
-        changed_y = parameters->pendulum_walk_param.max_step_differ_y * sign(error_direction);
-    }
-    else if (error_direction == M_PI || error_direction == -M_PI)
-    {
-        changed_x = -parameters->pendulum_walk_param.max_step_differ_x;
-        changed_y = 0;
-    }
-    else
-    {
-        y_cut = sign(error_direction) * parameters->pendulum_walk_param.max_step_differ_y;
-        x_cut = sign(cos(error_direction)) * parameters->pendulum_walk_param.max_step_differ_x;
-        changed_x = y_cut / (tan(error_direction) + y_cut / x_cut);
-        changed_y = tan(error_direction) * changed_x;
-    }
-
-    double pre_speed_x = last_gait_element.x + changed_x;
-    double pre_speed_y = last_gait_element.y + changed_y;
-    //判定这个速度是否超出了最大速度限制四边形
-    bool is_overflow;
-    double pre_speed_angle = Atan(pre_speed_y, pre_speed_x);
-    double pre_dir_max_x, pre_dir_max_y;
-    if (pre_speed_angle == 0)
-    {
-        x_cut = parameters->pendulum_walk_param.max_step_x;
-        y_cut = parameters->pendulum_walk_param.max_step_y_in;
-        pre_dir_max_x = parameters->pendulum_walk_param.max_step_x;
-        pre_dir_max_y = 0;
-    }
-    else if (pre_speed_angle == M_PI / 2)
-    {
-        pre_dir_max_x = 0;
-        pre_dir_max_y = ((this_is_right) ? (parameters->pendulum_walk_param.max_step_y_in) : (parameters->pendulum_walk_param.max_step_y_out));
-        x_cut = parameters->pendulum_walk_param.max_step_x;
-        y_cut = pre_dir_max_y;
-    }
-    else if (pre_speed_angle == -M_PI / 2)
-    {
-        pre_dir_max_x = 0;
-        pre_dir_max_y = ((this_is_right) ? (-parameters->pendulum_walk_param.max_step_y_out) : (-parameters->pendulum_walk_param.max_step_y_in));
-        x_cut = parameters->pendulum_walk_param.max_step_x;
-        y_cut = pre_dir_max_y;
-    }
-    else if (pre_speed_angle == M_PI || pre_speed_angle == -M_PI)
-    {
-        pre_dir_max_x = -parameters->pendulum_walk_param.max_step_x;
-        pre_dir_max_y = 0;
-        x_cut = -parameters->pendulum_walk_param.max_step_x;
-        y_cut = parameters->pendulum_walk_param.max_step_y_in;
-    }
-    else
-    {
-        y_cut = ((this_is_right) ? ((sign(pre_speed_angle) > 0) ? (parameters->pendulum_walk_param.max_step_y_in) : (-parameters->pendulum_walk_param.max_step_y_out)) : ((sign(pre_speed_angle) > 0) ? (parameters->pendulum_walk_param.max_step_y_out) : (-parameters->pendulum_walk_param.max_step_y_in)));
-        x_cut = sign(cos(pre_speed_angle)) * parameters->pendulum_walk_param.max_step_x;
-        pre_dir_max_x = y_cut / (tan(pre_speed_angle) + y_cut / x_cut);
-        pre_dir_max_y = tan(pre_speed_angle) * hope_x;
-    }
-    is_overflow = ((pow(pre_dir_max_x, 2) + pow(pre_dir_max_y, 2)) < (pow(pre_speed_x, 2) + pow(pre_speed_y, 2)));
-    double final_speed_x, final_speed_y;
-    if (!is_overflow)
-    {
-        result_gait.x = final_speed_x = pre_speed_x;
-        result_gait.y = final_speed_y = pre_speed_y;
-        result_gait.isRight = this_is_right;
-    }
-    else
-    {
-        if (error_direction == 0 || error_direction == M_PI || error_direction == -M_PI)
-        {
-            final_speed_y = pre_speed_y;
-            final_speed_x = x_cut - x_cut / y_cut * final_speed_y;
-        }
-        else if (error_direction == M_PI / 2 || error_direction == -M_PI / 2)
-        {
-            final_speed_x = pre_speed_x;
-            final_speed_y = y_cut - y_cut / x_cut * final_speed_x;
-        }
-        else
-        {
-            final_speed_x = (y_cut - pre_speed_y + tan(error_direction) * pre_speed_x) / (tan(error_direction) + y_cut / x_cut);
-            final_speed_y = y_cut - y_cut / x_cut * final_speed_x;
-        }
-        result_gait.x = final_speed_x;
-        result_gait.y = final_speed_y;
-        result_gait.isRight = this_is_right;
-    }
-    double error_angle;
-    double final_yaw;
-
-    if (error_aim_angle == 1000) //如果是默认的角度，机器人的旋转方向目标为速度方向
-    {
-        error_angle = Rad2Deg(Atan(final_speed_y, final_speed_x));
-        result_gait.label = "speed_controller default error_angle";
-    }
-    else //如果指定了error_aim_angle，机器人的旋转目标为目标位置朝向的目标
-    {
-        error_angle = AdjustDegRange2(error_aim_angle);
-        result_gait.label = "speed_controller customized error_angle";
-    }
-    //cout<<"error_angle"<<error_angle<<endl;
-    //cout<<"error_aim_angle"<<Rad2Deg(abs(aim_field_angle))<<endl;
-    //似乎是过大就只转10度
-    if (abs(error_angle) > 20||Rad2Deg(abs(aim_field_angle))>50)  // TODO 修复这里的hard code
-    {
-        //cout<<"error_aim_angle"<<Rad2Deg(abs(aim_field_angle))<<endl;
-        //这段代码可能是在判断是否是噪声干扰，第二个参数是判断上一次gait有没有做角度的变化
-        if (sign(error_angle) != sign(last_gait_element.t) && last_gait_element.t != 0)
-        {
-            final_yaw = 0;
-        }
-        else
-        {
-            final_yaw = sign(error_angle) * 10;
-        }
-    }
-    else
-    {
-        double nobrain_angle = parameters->stp.correct_k * aim_field_angle;
-        nobrain_angle = (abs(nobrain_angle) > 10) ? (sign(nobrain_angle) * 10) : nobrain_angle;
-        double this_step_x = parameters->stp.last_gait.x + parameters->pendulum_walk_param.max_step_differ_x / 3;
-        if (this_step_x > parameters->pendulum_walk_param.max_step_x)
-        {
-            this_step_x = parameters->pendulum_walk_param.max_step_x;
-        }
-        result_gait.x = this_step_x;
-        result_gait.y = nobrain_angle / parameters->stp.correct_y_k;
-        final_yaw = nobrain_angle;
-        result_gait.label = "nobrain";
-        
-    }
-    //限制范围
-    if (abs(final_yaw) > parameters->pendulum_walk_param.max_step_yaw)
-    {
-        final_yaw = sign(final_yaw) * parameters->pendulum_walk_param.max_step_yaw;
-    }
-    result_gait.t = final_yaw;
-    return result_gait;
-} // namespace dmotion
 } // namespace dmotion
 
 

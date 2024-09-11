@@ -46,6 +46,9 @@
       </visual>
       <pose>0 0 0 0 0 0</pose>
       <enable_wind>false</enable_wind>
+      <sensor name="imu_sensor" type="imu">
+        <always_on>1</always_on>
+      </sensor>
     </link>
     <joint name='left_arm_upper' type='revolute'>
       <pose>6.9388939039072284e-18 -1.7347234759768071e-18 1.3877787807814457e-17 0 0 0</pose>

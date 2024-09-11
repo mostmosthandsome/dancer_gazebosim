@@ -33,18 +33,13 @@ using namespace std;
 namespace dmotion
 {
 
-void LittleAdjust(double start_x, double start_y, double start_angle, double end_x, double end_y, double end_yaw);
 vector<double> OneStepTransform(double global_start_x, double global_start_y, double global_start_yaw, double global_end_x, double global_end_y, double global_end_yaw);
-void TurnAround(double angle);
-vector<double> CalculateTurnSequence(double turn_angle);
-void SlowDown();
-gait_element GenerateNewGait(double aim_field_angle, gait_element last_gait_element, double error_aim_angle=1000); // 使用几何法构建速度限制的离散步态速度控制器
 class PendulumWalk
 {
   public:
+    PendulumWalk(std::shared_ptr< std::queue< std::vector<double> > > _action_list, std::shared_ptr<Parameters> param);
+    PendulumWalk(std::shared_ptr< std::queue< std::vector<double> > > _action_list, std::shared_ptr<Parameters> param, const double &unusual_ankle_dis);
     //相对于理想情况的重心轨迹曲线的x、y方向的偏移
-    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pbr;          //用于发给IO舵机值
-    rclcpp::Rate *lopr;              //用于控制发值周期
     double x_i, y_i, yaw_i;       //假想的每步移动量直接施加在这个虚拟位移上面
     double com_ac_x;              //用于加速的x和y方向的偏移
     double com_ac_y;
@@ -55,21 +50,17 @@ class PendulumWalk
     std::vector<double> com_pos;   //上一步规划com最后落地时的x,y,yaw,单位是cm和弧度制，不包含com_ac_x
     std::vector<double> last_rpy;  //上一个周期收到的RPY值
 
-    PendulumWalk(std::shared_ptr<Parameters> param,rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr publisher, rclcpp::Rate *loop_rate);
-    PendulumWalk(std::shared_ptr<Parameters> param,rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr publisher, rclcpp::Rate *loop_rate, const double &unusual_ankle_dis);
     ~PendulumWalk();
     void GiveAStep(double dx, double dy, double dyaw);
     void GiveATick();
-    std::vector< std::vector<double> > GiveAStepTick(gait_element now_gait);
+    void GiveAStepTick(gait_element now_gait);
 
     bool CheckWillFall(); //新函数，判断是否要调整落脚点
     bool AdjustFoothold(double dx, double dy, double d_yaw);  //新函数，在腿摆动的时候调整落脚点
-    gait_element GenerateNewGait(double aim_field_angle, gait_element last_gait_element, double error_aim_angle);
     vector<double> CalculateTurnSequence(double turn_angle);
     void SlowDown();//匀速减少
-    void LittleAdjust(double start_x, double start_y, double start_angle, double end_x, double end_y, double end_angle);    
+    void LittleAdjust(double start_x, double start_y, double start_angle, double end_x, double end_y, double end_angle=1000);    
     void TurnAround(double angle);
-    std::vector< std::vector<double> > joint_queue;
 
     int tick_num;
     int fall_pre_tick;
@@ -105,6 +96,8 @@ class PendulumWalk
 
     dmotion::OneFootLanding *Support;
     std::shared_ptr<Parameters> parameters;
+    //动作序列
+    std::shared_ptr< std::queue< std::vector<double> > > action_list;
 
 };
 } // namespace dmotion

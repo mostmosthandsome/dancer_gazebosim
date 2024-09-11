@@ -15,7 +15,7 @@ def generate_launch_description():
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
-        launch_arguments={'gz_args': '-r ' + current_dir + '/model/robocup_world.sdf -v 3'}.items(),
+        launch_arguments={'gz_args': current_dir + '/model/robocup_world.sdf -v 3'}.items(),
     )
     bridge = Node(
         package='ros_gz_bridge',
@@ -24,14 +24,23 @@ def generate_launch_description():
                    ],
         output='screen'
     )
-    spawn = Node(
+    spawn1 = Node(
         package='ros_gz_sim',
         executable='create',
         arguments=[
-            '-file', current_dir + '/model/robot.sdf','-z','0.7',
+            '-file', current_dir + '/model/robot.sdf','-z','0.7','-name', 'robot1',
         ],
         output='screen',
     )
+
+    # spawn2 = Node(
+    #     package='ros_gz_sim',
+    #     executable='create',
+    #     arguments=[
+    #         '-file', current_dir + '/model/robot.sdf','-x', '1.0', '-y','1.0', '-z','0.7', '-name', 'robot2',
+    #     ],
+    #     output='screen',
+    # )
     # watcher = Node(
     #     package='climb',
     #     executable='joint_reader',
@@ -41,5 +50,6 @@ def generate_launch_description():
         # watcher,
         gz_sim,
         bridge,
-        spawn
+        spawn1,
+        # spawn2
     ])

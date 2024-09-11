@@ -12,6 +12,7 @@
 #include <memory>
 #include "Polynomial/Polynomial.hpp"
 #include "Parameters.h"
+#include <vector>
 
 // #define DEFAULT_POINT_INTERVAL 10   //默认的发值时间间隔
 // #define DEFAULT_BOUNDARY_SLOPE 1.0
@@ -79,6 +80,47 @@ namespace dmotion {
 
     private:
     };
+
+    inline std::vector<double> Planning(std::shared_ptr<Parameters> parameters, double start_time, double end_time, double y_0, double y_1, double s_0, double s_1)
+    {
+        std::vector<double> x, y, s, result;
+        y.push_back(y_0);
+        y.push_back(y_1);
+        s.push_back(s_0);
+        s.push_back(s_1);
+        x.push_back(start_time / 100.0);
+        x.push_back(end_time / 100.0);
+        //        cout << "tttttt" << endl;
+        //        PrintVector(x);
+        //        PrintVector(y);
+        //        PrintVector(s);
+
+        ThreeInterpolation hello(parameters, x, y, s);
+        result = hello.GetPoints();
+        //        PrintVector(hello.GetTimes());
+        return result;
+    }
+
+    inline std::vector< std::vector<double> > ServoTransition(std::shared_ptr<Parameters> parameters, std::vector<double> start_vector, std::vector<double> end_vector)
+    {
+        int tick_num = 40; //50个tick
+        std::vector<std::vector<double>> result_matrix;
+        std::vector<double> ttmp = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        for (int k = 0; k < tick_num; k++)
+        {
+            result_matrix.push_back(ttmp);
+        }
+        for (int i = 0; i < 12; i++)
+        {
+            std::vector<double> tmp = Planning(parameters, 0, (double)tick_num, start_vector[i], end_vector[i], 0, 0);
+
+            for (int j = 0; j < tick_num; j++)
+            {
+                result_matrix[j][i] = tmp[j+1];
+            }
+        }
+        return result_matrix;
+    }
 
 }
 

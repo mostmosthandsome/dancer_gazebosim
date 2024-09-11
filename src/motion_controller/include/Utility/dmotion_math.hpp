@@ -8,11 +8,12 @@
 
 #include <vector>
 #include <cmath>
-#include <string>
 #include <iostream>
 #include <Eigen/Dense>
 #include <iomanip>
 #include <thread>
+#include <memory>
+#include <queue>
 
 namespace dmotion
 {
@@ -64,6 +65,14 @@ inline std::vector<Scalar> &Deg2Rad(std::vector<Scalar> &deg)
 inline void Delay(int time) //time*1000000为秒数
 {
     std::this_thread::sleep_for(std::chrono::nanoseconds(time));
+}
+
+/**
+ * @brief 仿真专用延时函数，输入参数为需要延时的微秒数
+ */
+inline void Delay(std::shared_ptr< std::queue< std::vector<double> > > action_list,int time)
+{
+    action_list->push(std::vector<double>({time / 1e6}));
 }
 
 /**
@@ -266,6 +275,7 @@ struct motion_tick //用来描述发值瞬间的机器人动作参数的结构�
     std::vector<double> whole_com;
     std::vector<double> hang_foot;
 };
+
 
 
 } // namespace dmotion

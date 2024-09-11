@@ -25,7 +25,6 @@ ThreeInterpolation::ThreeInterpolation(std::shared_ptr<Parameters> param,const s
     s_angle_ = s_angle;
 
     time_interval_ = parameters->three_interpolation_param.DEFAULT_POINT_INTERVAL;
-
     if (isInOrder(x_array_))
     {
         piece_num_ = static_cast<int>(x_array_.size() - 1);

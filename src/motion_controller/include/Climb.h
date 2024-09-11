@@ -1,13 +1,15 @@
 #pragma once
 #include "Parameters.h"
 #include <string>
+#include <queue>
+#include <memory>
 
 namespace dmotion
 {
     class Climb
     {
     public:
-        Climb(std::string label, std::vector<double> position_start,std::shared_ptr<Parameters> parameters,std::shared_ptr<zjudancer::simulation> env);
+        Climb(std::shared_ptr< std::queue< std::vector<double> > > _action_list, std::string label, std::shared_ptr<Parameters> parameters);
         void Prepare();
         void working();
 
@@ -20,6 +22,6 @@ namespace dmotion
         
 
         std::shared_ptr<Parameters> parameters;
-        std::shared_ptr<zjudancer::simulation> env;
+        std::shared_ptr< std::queue< std::vector<double> > > action_list;
     };
 }

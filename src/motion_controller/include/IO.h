@@ -52,9 +52,19 @@ namespace zjudancer
     void update_observation(const gz::sim::UpdateInfo &_info,    const gz::sim::EntityComponentManager &_ecm);
 
     /**
-     * 获取机器人当前所在位置的x,y,yaw(坐标系待定)
+     * @brief 获取机器人当前所在位置的x,y,yaw(坐标系为世界坐标系)
      */
     std::vector<double> get_robot_global();
+
+    /**
+     * @brief 获取机器人当前的舵机角度，注意，如果系统还没有初始化好，可能返回空的vector，一定要检查
+     */
+    std::vector<double> get_cur_servo_angles(const gz::sim::UpdateInfo &_info, const gz::sim::EntityComponentManager &_ecm);
+
+    /**
+     * @brief 获取机器人当前的rpy
+     */
+    std::vector<double> get_rpy();
 
 
   public:

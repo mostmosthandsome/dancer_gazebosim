@@ -8,31 +8,22 @@
 
 
 namespace dmotion {
-    const double ForKin::upper_leg_length = 12.3;  //大腿的长度
-    const double ForKin::lower_leg_length = 13.0;  //小腿的长度
-    const double ForKin::ankle_from_ground = 6.0;  //脚踝距离地面的高度
-    const double ForKin::half_hip_width = 4.5;     //两髋关节点距离的一半,相当于髋关节点相对于身体中心原点的y方向坐标
-    const double ForKin::hip_x_from_origin = 0;    //髋关节点相对于身体中心原点的x方向坐标
-    const double ForKin::hip_z_from_origin = 10.5;  //髋关节点相对于身体中心原点的z
-    const double ForKin::hip_z = 6;//yaw下部至hip舵机轴
-    const double ForKin::neck_z_from_hip = 17.4;  //颈关节点相对于身体中心原点的z
-    const double ForKin::upper_leg_length_u = 12.1;  //大腿的长度
-    const double ForKin::lower_leg_length_u = 12.8;  //小腿的长度
-    const double ForKin::ankle_from_ground_u = 6.0;  //脚踝距离地面的高度
 
 
 
-    ForKin::ForKin(const std::vector<double> angles, bool isRight) {
+    ForKin::ForKin( std::shared_ptr<Parameters> _parameters, const std::vector<double> angles, bool isRight):parameters(_parameters) {
+        neck_z_from_hip = 17.4;
+        hip_z = 6;
         for (unsigned i = 0; i < angles.size(); i++) {
             angles_.emplace_back(angles[i] * M_PI / 180.0);
         }
         isRight_ = isRight;
-        double distance_tmp = std::sqrt(half_hip_width * half_hip_width + hip_x_from_origin * hip_x_from_origin);
-        double angle_tmp = std::atan(hip_x_from_origin / half_hip_width);
+        double distance_tmp = std::sqrt(parameters->one_foot_landing_param.HALF_HIP_WIDTH * parameters->one_foot_landing_param.HALF_HIP_WIDTH + parameters->one_foot_landing_param.HIP_X_FROM_ORIGIN * parameters->one_foot_landing_param.HIP_X_FROM_ORIGIN);
+        double angle_tmp = std::atan(parameters->one_foot_landing_param.HIP_X_FROM_ORIGIN / parameters->one_foot_landing_param.HALF_HIP_WIDTH);
         //机器人左腿SDH参数表
         alpha = {0, M_PI / 2, M_PI / 2, 0, 0, -M_PI / 2, M_PI / 2};
-        a = {distance_tmp, 0, 0, upper_leg_length, lower_leg_length, 0, ankle_from_ground};
-        d = {0, -hip_z_from_origin, 0, 0, 0, 0, 0,};
+        a = {distance_tmp, 0, 0, parameters->one_foot_landing_param.UPPER_LEG_LENGTH, parameters->one_foot_landing_param.LOWER_LEG_LENGTH, 0, parameters->one_foot_landing_param.ANKLE_FROM_GROUND};
+        d = {0, -parameters->one_foot_landing_param.HIP_Z_FROM_ORIGIN, 0, 0, 0, 0, 0,};
         theta = {M_PI / 2 - angle_tmp,
                  angle_tmp + angles_[0],
                  angles_[1] - M_PI / 2,
@@ -81,19 +72,15 @@ namespace dmotion {
     //标准DH
     //坐标系01分别在：脖子上端　髋部下端
     std::vector<double> ForKin::FK_neck_to_foot(const std::vector<double> angles, bool isRight){
+        
         angles_.clear();
-        cout<<"in function:"<<endl;
-        for (unsigned i = 0; i < angles.size(); i++) {
-            angles_.emplace_back(angles[i] * M_PI / 180.0);
-            cout<<angles[i]<<"  ";
-        }
-        cout<<endl;
+        for (unsigned i = 0; i < angles.size(); i++) angles_.emplace_back(angles[i] * M_PI / 180.0);
         isRight_ = isRight;
-        double distance_tmp = std::sqrt(half_hip_width * half_hip_width + hip_x_from_origin * hip_x_from_origin);
-        double angle_tmp = std::atan(hip_x_from_origin / half_hip_width);
+        double distance_tmp = std::sqrt(parameters->one_foot_landing_param.HALF_HIP_WIDTH * parameters->one_foot_landing_param.HALF_HIP_WIDTH + parameters->one_foot_landing_param.HIP_X_FROM_ORIGIN * parameters->one_foot_landing_param.HIP_X_FROM_ORIGIN);
+        double angle_tmp = std::atan(parameters->one_foot_landing_param.HIP_X_FROM_ORIGIN / parameters->one_foot_landing_param.HALF_HIP_WIDTH);
         //机器人左腿标准DH参数表
         alpha = {0, M_PI / 2, M_PI / 2, 0, 0, -M_PI / 2, M_PI / 2};
-        a = {distance_tmp, 0, 0, upper_leg_length, lower_leg_length, 0, ankle_from_ground_u};
+        a = {distance_tmp, 0, 0, parameters->one_foot_landing_param.UPPER_LEG_LENGTH, parameters->one_foot_landing_param.LOWER_LEG_LENGTH, 0, parameters->one_foot_landing_param.ANKLE_FROM_GROUND};
         d = {-neck_z_from_hip, -hip_z, 0, 0, 0, 0, 0,};
         theta = {M_PI / 2 - angle_tmp,
                  angle_tmp + angles_[0],
@@ -120,7 +107,7 @@ namespace dmotion {
         T.rotate(rotate_yaw90);
 
 
-        T.translate(Eigen::Vector3d(0, -parameters.pendulum_walk_param.ANKLE_DIS / 2.0, 0));
+        T.translate(Eigen::Vector3d(0, -parameters->pendulum_walk_param.ANKLE_DIS / 2.0, 0));
 
 
 
@@ -141,14 +128,6 @@ namespace dmotion {
             result_vector[5] = -result_vector[5];
 
         }
-
-        cout<<"in function"<<endl;
-        for(int i=1;i<6;i++){
-            cout<<" "<<result_vector[i];
-        }
-        cout<<endl;
-        return result_vector;
-
 
         return result_vector;
 

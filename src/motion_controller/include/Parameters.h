@@ -1,6 +1,7 @@
 #pragma once
 
 #include "rclcpp/rclcpp.hpp"
+#include "geometry_msgs/msg/vector3.hpp"
 #include <vector>
 #include <deque>
 #include <iostream>
@@ -162,6 +163,7 @@ namespace dmotion
         BACKWARD_FALL_GETUP = 121,
         LEFT_KICK = 210,
         RIGHT_KICK = 220,
+        WALK = 300,
         WALK_TO_BALL = 312,
         WALK_TO_BALL_TURN_T0_AIM = 313,
         WALK_TO_BALL_ADJUST_TO_RIGHT_KICK = 314,
@@ -234,7 +236,7 @@ namespace dmotion
         double LAAT_for_ball = 10;
 
 
-    std::vector<double> cur_servo_angles = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        std::vector<double> cur_servo_angles = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         double cur_ankle_dis =15.0;
 
 
@@ -281,6 +283,7 @@ namespace dmotion
         StatusParam stp;
         ClimbParam climb_param;
         SupportPhase support_phase = DOUBLE;
+        std::string config_path;
     };
 
 
@@ -290,5 +293,10 @@ namespace dmotion
     public:
         ParamNode();
         std::shared_ptr<Parameters> parameters;
+
+    private:
+        rclcpp::Subscription<geometry_msgs::msg::Vector3>::SharedPtr ball_position_subscriber;
+        void ball_position_callback(geometry_msgs::msg::Vector3 msg);
+
     };
 } // namespace dmotion

@@ -40,6 +40,9 @@ namespace zjudancer
          */
         void ComputeMotion();
 
+        /// \brief How many times the controller will generate command per second , 单位HZ
+        double control_frequency{100};
+
         class MotionControllerPrivate;
     private:
         //将乱七八糟的数据村到dataPtr里，方便阅读

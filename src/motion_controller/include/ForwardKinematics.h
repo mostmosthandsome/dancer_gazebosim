@@ -11,29 +11,18 @@
 #include <iostream>
 #include <cmath>
 #include "Utility/dmotion_math.hpp"
+#include "Parameters.h"
 
 namespace dmotion{
 class ForKin{
 public:
-    ForKin(const std::vector<double> angles, bool isRight);
+    ForKin( std::shared_ptr<Parameters> _parameters, const std::vector<double> angles, bool isRight);
 
     std::vector<double> FK_neck_to_foot(const std::vector<double> angles, bool isRight);
     std::vector<double>  angles_;
     ForKin();
 
     bool isRight_;
-    static const double upper_leg_length;   //大腿的长度
-    static const double lower_leg_length;   //小腿的长度
-    static const double ankle_from_ground;  //脚踝距离地面的高度
-    static const double half_hip_width;     //两髋关节点距离的一半,相当于髋关节点相对于身体中心原点的y方向坐标
-    static const double hip_x_from_origin;  //髋关节点相对于身体中心原点的x方向坐标
-    static const double hip_z_from_origin;  //髋关节点相对于身体中心原点的z
-    static const double neck_z_from_hip;  //脖子相对髋关节的ｚ
-    static const double hip_z;  //脖子相对髋关节的ｚ
-    static const double upper_leg_length_u;   //大腿的长度
-    static const double lower_leg_length_u;   //小腿的长度
-    static const double ankle_from_ground_u;  //脚踝距离地面的高度
-
 
     double x_result;
     double y_result;
@@ -45,11 +34,13 @@ public:
     std::vector<double> result_vector;
     Eigen::Isometry3d T;
 private:
-
+    double neck_z_from_hip;//之前的注释里写是颈关节点相对于身体中心原点的z，但是具体我还没有仔细看
+    double hip_z;//yaw下部至hip舵机轴
     std::vector<double> alpha;
     std::vector<double> a;
     std::vector<double> d;
     std::vector<double> theta;
+    std::shared_ptr<Parameters> parameters;
 
 };
 
