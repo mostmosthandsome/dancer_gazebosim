@@ -39,9 +39,11 @@
               </ode>
             </friction>
             <contact>
+              <elastic_modulus>1e8</elastic_modulus>
+              <poissons_ratio>0.35</poissons_ratio>
               <ode>
-                <kp>100</kp>
-                <kd>200</kd>
+                <kp>10</kp>
+                <kd>2</kd>
               </ode>
             </contact>
           </surface>

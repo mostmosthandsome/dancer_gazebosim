@@ -1081,7 +1081,7 @@
       <parent>chest</parent>
       <child>right_leg_yaw</child>
       <axis>
-        <xyz>0 0 -1</xyz>
+        <xyz>0 0 1</xyz>
         <limit>
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>
@@ -1140,7 +1140,7 @@
       <parent>right_leg_yaw</parent>
       <child>right_leg_roll</child>
       <axis>
-        <xyz>0 -1 0</xyz>
+        <xyz>0 1 0</xyz>
         <limit>
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>
@@ -1532,7 +1532,7 @@
       <parent>right_leg_ankle</parent>
       <child>right_foot</child>
       <axis>
-        <xyz>0 1 0</xyz>
+        <xyz>0 -1 0</xyz>
         <limit>
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>

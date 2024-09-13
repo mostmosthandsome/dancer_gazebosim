@@ -128,7 +128,11 @@ action_list(std::make_shared< std::queue< std::vector<double> > >())
   joint_command = f.GetOneStep(hangfoot,com,upbody_pose);
   for(int i = 0; i < 2; ++i)  joint_command.push_back(param_server_node->parameters->stp.UPARM_ANGLE),joint_command.push_back(param_server_node->parameters->stp.LOWARM_ANGLE);
   for(int i = 0; i < 6; ++i)   joint_command[i + 6] = joint_command[i];
+  joint_command[6] = -joint_command[6],joint_command[7] = -joint_command[7],joint_command[11] = -joint_command[11];
   joint_command = dmotion::Deg2Rad(joint_command);
+  // std::string str;
+  // for(auto it : joint_command)  str += std::to_string(it) + ',';
+  // gzmsg << "init : " << str << std::endl;
   pendulum_global = std::make_shared<PendulumWalk>(this->action_list,param_server_node->parameters);
 }
 

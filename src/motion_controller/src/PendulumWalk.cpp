@@ -250,7 +250,6 @@ void PendulumWalk::GiveATick()
 
     parameters->support_phase = (SupportPhase)((int)support_is_right);
     auto action = Support->GetOneStep(tmptick.hang_foot, tmptick.whole_com, tmptick.upbody_pose);
-    PrintVector(action);
     action_list->push(action);
 }
 
