@@ -11,8 +11,10 @@
 
 
 # 如何编译
-首先编译控制器\\
-将src/Parameters.cpp里第10行的config_path改成自己的config文件夹路径\\
+首先编译控制器  
+
+将src/Parameters.cpp里第10行的config_path改成自己的config文件夹路径  
+
 输入
 ```bash
 colcon build
@@ -32,5 +34,5 @@ ros2 launch gazebo_env env.launch.py
 场地如图所示，横向为x轴，纵向为y轴，圆点位于场地正中央
 
 ## 日后
-如果修改了urdf，比如增加了关节数
+如果修改了urdf，比如增加了关节数  
 一定要记得修改IO.h里的joint_order和Parameters.h里的cur_servo_angles
