@@ -11,8 +11,8 @@
 
 
 # 如何编译
-首先编译控制器//
-将src/Parameters.cpp里第10行的config_path改成自己的config文件夹路径//
+首先编译控制器\\
+将src/Parameters.cpp里第10行的config_path改成自己的config文件夹路径\\
 输入
 ```bash
 colcon build
