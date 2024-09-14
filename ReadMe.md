@@ -3,7 +3,12 @@
 建议使用Ubuntu版本>=22.04（20.04好像有个库没有）
 
 ## gazebo安装
-挂上梯子，然后参见https://gazebosim.org/docs/harmonic/install_ubuntu/
+挂上梯子，然后参见https://gazebosim.org/docs/harmonic/install_ubuntu/ 
+然后
+```bash
+sudo apt install python3-colcon-common-extensions
+sudo apt-get install ros-humble-ros-gzharmonic
+```
 
 ## 依赖库安装
 ### Eigen安装
