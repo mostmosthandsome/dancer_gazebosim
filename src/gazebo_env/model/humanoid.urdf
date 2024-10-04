@@ -21,7 +21,7 @@
         <visual name='chest_visual'>
         <origin rpy="-1.570796327 0.0 0.0" xyz="0.0 0.0 0.0"/>
             <geometry>
-            <mesh filename="../meshes/chest.STL" />
+            <mesh filename="meshes/chest.STL" />
             </geometry>
         </visual>
     </link>
@@ -60,7 +60,7 @@
         <visual name='neck_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-            <mesh filename="../meshes/neck.STL" />
+            <mesh filename="meshes/neck.STL" />
         </geometry>
         <material name='neck_material'>
             <rgba>1 1 1 1</rgba>
@@ -102,7 +102,7 @@
         <visual name='head_visual'>
         <origin rpy="-1.570796327  0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-            <mesh filename="../meshes/head.STL" />
+            <mesh filename="meshes/head.STL" />
         </geometry>
         <material name='head_material'>
             <rgba>1 1 1 1</rgba>
@@ -132,7 +132,7 @@
         <visual name='left_arm_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
             <geometry>
-                <mesh filename="../meshes/left_arm.STL" />
+                <mesh filename="meshes/left_arm.STL" />
             </geometry>
             <material name='left_arm_material'>
                 <rgba>1 1 1 1</rgba>
@@ -174,7 +174,7 @@
         <visual name='left_hand_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-            <mesh filename="../meshes/left_hand.STL" />
+            <mesh filename="meshes/left_hand.STL" />
         </geometry>
         <material name='left_hand_material'>
             <rgba>1 1 1 1</rgba>
@@ -204,7 +204,7 @@
         <visual name='right_arm_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
             <geometry>
-            <mesh filename="../meshes/right_arm.STL" />
+            <mesh filename="meshes/right_arm.STL" />
             </geometry>
             <material name='right_arm_material'>
             <rgba>1 1 1 1</rgba>
@@ -249,7 +249,7 @@
       <visual name='right_hand_visual'>
               <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
           <geometry>
-          <mesh filename="../meshes/right_hand.STL" />
+          <mesh filename="meshes/right_hand.STL" />
           </geometry>
           <material name='right_hand_material'>
           <rgba>1 1 1 1</rgba>
@@ -280,7 +280,7 @@
       <visual name='left_leg_yaw_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-          <mesh filename="../meshes/left_leg_yaw.STL" />
+          <mesh filename="meshes/left_leg_yaw.STL" />
         </geometry>
         <material name='left_leg_yaw_material'>
           <rgba>0.990196109 1 1 1</rgba>
@@ -325,7 +325,7 @@
       <visual name='left_leg_roll_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-          <mesh filename="../meshes/left_leg_roll.STL" />
+          <mesh filename="meshes/left_leg_roll.STL" />
         </geometry>
         <material name='left_leg_roll_material'>
           <rgba>0.313725501 0.313725501 0.313725501 1</rgba>
@@ -384,7 +384,7 @@
       <visual name='left_leg_pitch_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-          <mesh filename="../meshes/left_leg_pitch.STL" />
+          <mesh filename="meshes/left_leg_pitch.STL" />
         </geometry>
         <material name='left_leg_pitch_material'>
           <rgba>0.941176474 0.941176474 0.941176474 1</rgba>
@@ -436,7 +436,7 @@
       <visual name='left_leg_knee_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-          <mesh filename="../meshes/left_leg_knee.STL" />
+          <mesh filename="meshes/left_leg_knee.STL" />
         </geometry>
         <material name='left_leg_knee_material'>
           <rgba>0.941176474 0.941176474 0.941176474 1</rgba>
@@ -537,7 +537,7 @@
       <visual name='left_leg_ankle_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-          <mesh filename="../meshes/left_leg_ankle.STL" />
+          <mesh filename="meshes/left_leg_ankle.STL" />
         </geometry>
         <material name='left_leg_ankle_material'>
           <rgba>0.367647082 0.367647082 0.367647082 1</rgba>
@@ -645,7 +645,7 @@
       <visual name='left_foot_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-          <mesh filename="../meshes/left_foot.STL" />
+          <mesh filename="meshes/left_foot.STL" />
         </geometry>
         <material name='left_foot_material'>
           <rgba>1 1 1 1</rgba>
@@ -676,7 +676,7 @@
       <visual name='right_leg_yaw_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-          <mesh filename="../meshes/right_leg_yaw.STL" />
+          <mesh filename="meshes/right_leg_yaw.STL" />
         </geometry>
         <material name='right_leg_yaw_material'>
           <rgba>0.990196109 1 1 1</rgba>
@@ -721,7 +721,7 @@
       <visual name='right_leg_roll_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-          <mesh filename="../meshes/right_leg_roll.STL" />
+          <mesh filename="meshes/right_leg_roll.STL" />
         </geometry>
         <material name='right_leg_roll_material'>
           <rgba>0.313725501 0.313725501 0.313725501 1</rgba>
@@ -780,7 +780,7 @@
       <visual name='right_leg_pitch_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-          <mesh filename="../meshes/right_leg_pitch.STL" />
+          <mesh filename="meshes/right_leg_pitch.STL" />
         </geometry>
         <material name='right_leg_pitch_material'>
           <rgba>0.941176474 0.941176474 0.941176474 1</rgba>
@@ -832,7 +832,7 @@
       <visual name='right_leg_knee_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-          <mesh filename="../meshes/right_leg_knee.STL" />
+          <mesh filename="meshes/right_leg_knee.STL" />
         </geometry>
         <material name='right_leg_knee_material'>
           <rgba>0.941176474 0.941176474 0.941176474 1</rgba>
@@ -933,7 +933,7 @@
       <visual name='right_leg_ankle_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-          <mesh filename="../meshes/right_leg_ankle.STL" />
+          <mesh filename="meshes/right_leg_ankle.STL" />
         </geometry>
         <material name='right_leg_ankle_material'>
           <rgba>1 1 1 1</rgba>
@@ -1041,7 +1041,7 @@
       <visual name='right_foot_visual'>
             <origin rpy="-1.570796327 0.000000 0.0 " xyz="0.000000 0.000000 0.000000 "/>
         <geometry>
-          <mesh filename="../meshes/right_foot.STL" />
+          <mesh filename="meshes/right_foot.STL" />
         </geometry>
         <material name='right_foot_material'>
           <rgba>1 1 1 1</rgba>

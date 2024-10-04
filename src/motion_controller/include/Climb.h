@@ -10,7 +10,13 @@ namespace dmotion
     {
     public:
         Climb(std::shared_ptr< std::queue< std::vector<double> > > _action_list, std::string label, std::shared_ptr<Parameters> parameters);
+        /**
+         * @brief 三次插值
+         */
         void Prepare();
+        /**
+         * @brief 数据分发和走一步
+         */
         void working();
 
     private:

@@ -283,6 +283,7 @@ void MotionController::PostUpdate(const UpdateInfo &_info, const EntityComponent
     this->dataPtr->param_server_node->parameters->stp.ball_field[0] = ball_field[0],this->dataPtr->param_server_node->parameters->stp.ball_field[1] = ball_field[1];//球在机器人坐标系下的位置
     this->dataPtr->param_server_node->parameters->stp.ball_field[2] = this->dataPtr->param_server_node->parameters->stp.ball_global[2] - this->dataPtr->param_server_node->parameters->stp.robot_global[2];
     this->dataPtr->param_server_node->parameters->stp.ball_field_distance = ball_field.norm();
+    this->dataPtr->param_server_node->parameters->status_code = StatusCode::WALK_TO_BALL;
   }
 
   //检查是否倒地
