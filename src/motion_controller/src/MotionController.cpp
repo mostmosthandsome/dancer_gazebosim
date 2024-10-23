@@ -381,6 +381,7 @@ void MotionController::MotionControllerPrivate::motion_fuse()
     if((*it)->get_status() != StatusCode::WALK) break;//如果最开始的动作不是行走，就不能融合
     std::shared_ptr<newPendulumWalk> old_motion = reinterpret_cast<std::shared_ptr<newPendulumWalk> &>(*it);
     old_motion->fuse(temp_motions[i]);
+    motions.push_back()
   }
   for(int i = fusing_window_pos + len0; i < len1; ++i) param_server_node->parameters->stp.tmp_gait = temp_motions[i],motions.push_back(std::make_shared<newPendulumWalk>(pendulum_global,param_server_node->parameters));
   temp_motions.clear();
