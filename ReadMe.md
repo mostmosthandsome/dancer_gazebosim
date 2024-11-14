@@ -16,8 +16,20 @@ sudo apt-get install ros-humble-ros-gzharmonic
 
 ## 依赖库安装
 ### Eigen安装
-https://gitlab.com/libeigen/eigen
-参见(https://mbd.baidu.com/ug_share/mbox/4a83aa9e65/share?product=smartapp&tk=6bb662b2a445a97d4121ed7126c4c5ab&share_url=https%3A%2F%2Fyebd1h.smartapps.cn%2Fpages%2Fblog%2Findex%3FblogId%3D137562851%26_swebfr%3D1%26_swebFromHost%3Dbaiduboxapp&domain=mbd.baidu.com)
+可以直接用apt安装
+```bash
+sudo apt install libeigen3-dev
+```
+也可以从https://gitlab.com/libeigen/eigen下载tar.gz
+```
+git clone https://gitlab.com/libeigen/eigen.git
+mkdir build
+cd build
+cmake ..
+sudo make install
+
+sudo cp -r /usr/local/include/eigen3/Eigen /usr/local/include
+```
 
 
 # 如何编译
