@@ -29,6 +29,18 @@ https://gitlab.com/libeigen/eigen
 ```bash
 colcon build
 ```
+如果报了类似于如下的错误
+```
+Could not find a package configuration file provided by "ament_cmake" with
+  any of the following names:
+
+    ament_cmakeConfig.cmake
+    ament_cmake-config.cmake
+```
+ 回到$home目录下，修改.bashrc文件并加入
+ ```bash
+source /opt/ros/humble/setup.bash
+```
 
 # 如何运行
 ```bash
