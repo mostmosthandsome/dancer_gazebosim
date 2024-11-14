@@ -48,7 +48,7 @@
                 default_boundary_slope: 1.0
             Climb:
                 whole_time: 0.5
-                not_leg_only_number: 17
+                not_leg_only_number: 19
             Kick:
                 # right_kick_x: -15.0
                 # right_kick_y: 7.0
@@ -75,7 +75,8 @@
                 dyaw_delta: 6
                 panball_x: 1.5
                 uparm_angle: 0.0
-                lowarm_angle: 175.0
+                midarm_angle: 0.0
+                lowarm_angle: 160.0
                 backward_step_length: -3
                 #LAAT_for_ball: 20
                 #LADT_for_ball: 40

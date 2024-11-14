@@ -4,7 +4,7 @@
     <link name='chest'>
       <inertial>
         <pose>-0.00018384687032060699 -0.0045161370514227696 -0.057123501960896897 0 0 0</pose>
-        <mass>0.88192504598295396</mass>
+        <mass>0.18192504598295396</mass>
         <inertia>
           <ixx>0.00046345121044283501</ixx>
           <ixy>-1.69677482344443e-08</ixy>
@@ -50,12 +50,16 @@
         <always_on>1</always_on>
       </sensor>
     </link>
+
+    
     <joint name='left_arm_upper' type='revolute'>
-      <pose>6.9388939039072284e-18 -1.7347234759768071e-18 1.3877787807814457e-17 0 0 0</pose>
+      <!-- <pose relative_to='chest'>0.0134 0.077899999999999997 0 0 0 0</pose> -->
+      <pose relative_to='chest'>-0.077000000000000003 0.0134 0 0 0 1.5707963267948966</pose>
+
       <parent>chest</parent>
-      <child>left_arm</child>
+      <child>left_shoulder</child>
       <axis>
-        <xyz>0 0 -1</xyz>
+        <xyz>0 -1 0</xyz>
         <limit>
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>
@@ -67,31 +71,85 @@
         <dynamics>
           <spring_reference>0</spring_reference>
           <spring_stiffness>0</spring_stiffness>
-          <damping>0.0347</damping>
-          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_shoulder'>
+      <pose relative_to='left_arm_upper'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-3.4807000000000002e-09 0.023605999999999999 -0.0044032000000000003 0 0 0</pose>
+        <mass>0.044031000000000001</mass>
+        <inertia>
+          <ixx>1.2764e-05</ixx>
+          <ixy>-6.4513999999999998e-12</ixy>
+          <ixz>-2.33e-11</ixz>
+          <iyy>1.5491000000000001e-05</iyy>
+          <iyz>2.6081999999999999e-06</iyz>
+          <izz>1.2414e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_shoulder_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/left_shoulder.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='left_shoulder_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/left_shoulder.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='left_arm_middle' type='revolute'>
+      <pose relative_to='left_shoulder'>0.0281 0.0258 -0.029000000000000001 0 0 0</pose>
+      <parent>left_shoulder</parent>
+      <child>left_arm</child>
+      <axis>
+        <xyz>-1 0 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
         </dynamics>
       </axis>
     </joint>
     <link name='left_arm'>
-      <pose>-0.074700000000000003 0.0134 0 3.14159265358979 1.5707963267948966 0</pose>
+      <pose relative_to='left_arm_middle'>0 0 0 0 0 0</pose>
       <inertial>
-        <pose>0.080763041509478606 0.00188579229078956 0.029109375792634701 0 0 0</pose>
-        <mass>0.140880482426088</mass>
+        <pose>-0.027900000000000001 2.8453e-05 -0.046835000000000002 0 0 0</pose>
+        <mass>0.14643999999999999</mass>
         <inertia>
-          <ixx>2.0746461598375701e-05</ixx>
-          <ixy>-2.8659021101734599e-11</ixy>
-          <ixz>-6.7417528894394298e-06</ixz>
-          <iyy>0.00012310039515784201</iyy>
-          <iyz>-1.5929639449771301e-07</iyz>
-          <izz>0.00011999284945507099</izz>
+          <ixx>5.2957000000000001e-05</ixx>
+          <ixy>6.2608e-11</ixy>
+          <ixz>-2.0249999999999999e-07</ixz>
+          <iyy>5.8520000000000002e-05</iyy>
+          <iyz>1.1014000000000001e-07</iyz>
+          <izz>3.6597000000000002e-05</izz>
         </inertia>
       </inertial>
       <collision name='left_arm_collision'>
-        <pose>0.0805 0 0.029 0 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
-          <box>
-            <size>0.1271 0.048 0.028</size>
-          </box>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/left_arm.STL</uri>
+          </mesh>
         </geometry>
       </collision>
       <visual name='left_arm_visual'>
@@ -103,21 +161,22 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>1 1 1 1</diffuse>
-          <ambient>1 1 1 1</ambient>
+          <diffuse>0.313724995 0.313724995 0.313724995 1</diffuse>
+          <ambient>0.313724995 0.313724995 0.313724995 1</ambient>
         </material>
       </visual>
-      <enable_wind>false</enable_wind>
     </link>
     <joint name='left_arm_lower' type='revolute'>
-      <pose>2.7755575615628914e-17 -1.7347234759768071e-18 1.3877787807814457e-17 0 0 0</pose>
+      <pose relative_to='left_arm'>-0.0281 0.023349999999999999 -0.1076 0 1.57 0</pose>
       <parent>left_arm</parent>
       <child>left_hand</child>
       <axis>
-        <xyz>0 0 -1</xyz>
+        <xyz>0 -1 0</xyz>
         <limit>
-          <lower>-3.14159265359</lower>
-          <upper>3.14159265359</upper>
+          <!-- <lower>-1.5707963267948966</lower>
+          <upper>1.5707963267948966</upper> -->
+          <lower>-3.0</lower>
+          <upper>3.0</upper>
           <effort>3</effort>
           <velocity>inf</velocity>
           <stiffness>100000000</stiffness>
@@ -126,49 +185,30 @@
         <dynamics>
           <spring_reference>0</spring_reference>
           <spring_stiffness>0</spring_stiffness>
-          <damping>0.0347</damping>
-          <friction>0.0843</friction>
         </dynamics>
       </axis>
     </joint>
     <link name='left_hand'>
-      <pose>-0.12424999999999893 0.013399999999999839 -0.13600000000000201 3.14159265358979 1.5707963267948966 0</pose>
+      <pose relative_to='left_arm_lower'>0 0 0 0 0 0</pose>
       <inertial>
-        <pose>0.063649150048298797 -1.0037286533176599e-08 0.0013189448064454001 0 0 0</pose>
-        <mass>0.024044269196268502</mass>
+        <pose>0.070329000000000003 -0.014057 -0.021406999999999999 0 0 0 </pose>
+        <mass>0.064269999999999994</mass>
         <inertia>
-          <ixx>1.94691318232501e-06</ixx>
-          <ixy>1.9798400242031498e-12</ixy>
-          <ixz>1.70538796340321e-12</ixz>
-          <iyy>4.9981652993954002e-05</iyy>
-          <iyz>7.0639482370012499e-13</iyz>
-          <izz>5.1889171468805399e-05</izz>
+          <ixx>1.2951e-05</ixx>
+          <ixy>-2.5065000000000001e-06</ixy>
+          <ixz>-3.8137999999999999e-07</ixz>
+          <iyy>5.8740999999999999e-05</iyy>
+          <iyz>1.7884999999999999e-12</iyz>
+          <izz>6.1017999999999998e-05</izz>
         </inertia>
       </inertial>
-      <collision name='left_hand_end_collision'>
-        <pose>0.135 0 0.0015 0 0 0</pose>
+      <collision name='left_hand_collision'>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
-          <cylinder>
-            <radius>0.02</radius>
-            <length>0.003</length>
-          </cylinder>
-        </geometry>
-      </collision>
-      <collision name='left_hand_base_collision'>
-        <pose>0 0 0.0005 0 0 0</pose>
-        <geometry>
-          <cylinder>
-            <radius>0.0146</radius>
-            <length>0.005</length>
-          </cylinder>
-        </geometry>
-      </collision>
-      <collision name='left_hand_connection_collision'>
-        <pose>0.060122 0 0.0015 0 0 0</pose>
-        <geometry>
-          <box>
-            <size>0.120244 0.027 0.003</size>
-          </box>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/left_hand.STL</uri>
+          </mesh>
         </geometry>
       </collision>
       <visual name='left_hand_visual'>
@@ -184,8 +224,8 @@
           <ambient>1 1 1 1</ambient>
         </material>
       </visual>
-      <enable_wind>false</enable_wind>
     </link>
+
     <joint name='left_hip_yaw' type='revolute'>
       <pose>0 0 0 0 0 0</pose>
       <parent>chest</parent>
@@ -942,69 +982,20 @@
       </visual>
       <enable_wind>false</enable_wind>
     </link>
+
     <joint name='right_arm_upper' type='revolute'>
-      <pose>0 -1.7347234759768071e-18 0 0 0 0</pose>
+      <pose relative_to='chest'>0.074700000000000003 0.0134 0 0 0 1.5707963267948966</pose>
+      <!-- <pose>0 -1.7347234759768071e-18 0 0 0 0</pose> -->
       <parent>chest</parent>
-      <child>right_arm</child>
+      <child>right_shoulder</child>
       <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-3.14159265359</lower>
-          <upper>3.14159265359</upper>
-          <effort>3</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>19.9718        
-        </limit>
-        <dynamics>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.0347</damping>
-          <friction>0.0843</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <link name='right_arm'>
-      <pose>0.074700000000000003 0.0134 0 0 1.5707963267948966 0</pose>
-      <inertial>
-        <pose>0.080812383367974402 -0.0018713152163851499 0.029108149958475899 0 0 0</pose>
-        <mass>0.140880482426088</mass>
-        <inertia>
-          <ixx>2.0746461598375701e-05</ixx>
-          <ixy>3.0340088781543498e-07</ixy>
-          <ixz>-6.7417528894395102e-06</ixz>
-          <iyy>0.00012310039515784201</iyy>
-          <iyz>1.5929818113849301e-07</iyz>
-          <izz>0.00011999284945507099</izz>
-        </inertia>
-      </inertial>
-      <collision name='right_arm_collision'>
-        <pose>0.0805 0 0.029 0 0 0</pose>
-        <geometry>
-          <box>
-            <size>0.1271 0.048 0.028</size>
-          </box>
-        </geometry>
-      </collision>
-      <visual name='right_arm_visual'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>meshes/right_arm.STL</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <diffuse>1 1 1 1</diffuse>
-          <ambient>1 1 1 1</ambient>
-        </material>
-      </visual>
-      <enable_wind>false</enable_wind>
-    </link>
-    <joint name='right_arm_lower' type='revolute'>
-      <pose>-2.7755575615628914e-17 -1.7347234759768071e-18 0 0 0 0</pose>
-      <parent>right_arm</parent>
-      <child>right_hand</child>
-      <axis>
-        <xyz>0 0 1</xyz>
+        <xyz>0 -1 0</xyz>
+        <!-- <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit> -->
         <limit>
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>
@@ -1016,49 +1007,146 @@
         <dynamics>
           <spring_reference>0</spring_reference>
           <spring_stiffness>0</spring_stiffness>
-          <damping>0.0347</damping>
-          <friction>0.0843</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_shoulder'>
+      <pose relative_to='right_arm_upper'>0 0 0 0 0 0</pose>
+      <!-- <pose>0.074700000000000003 0.0134 0 0 0 1.5707963267948966</pose> -->
+
+      <inertial>
+        <pose>0.00049892999999999997 -0.027125 -0.0079813000000000002 0 0 0</pose>
+        <mass>0.051527000000000003</mass>
+        <inertia>
+          <ixx>1.3534e-05</ixx>
+          <ixy>-6.4513999999999998e-12</ixy>
+          <ixz>1.8503000000000001e-11</ixz>
+          <iyy>1.5883999999999999e-05</iyy>
+          <iyz>-2.6081999999999999e-06</iyz>
+          <izz>1.2807e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_shoulder_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_shoulder.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='right_shoulder_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_shoulder.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='right_arm_middle' type='revolute'>
+      <pose relative_to='right_shoulder'>-0.021999999999999999 -0.029000000000000001 -0.029000000000000001 0 0 0</pose>
+      <parent>right_shoulder</parent>
+      <child>right_arm</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_arm'>
+      <pose relative_to='right_arm_middle'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.022026 -2.9995e-05 -0.049362000000000003 0 0 0</pose>
+        <mass>0.13894999999999999</mass>
+        <inertia>
+          <ixx>5.2185999999999998e-05</ixx>
+          <ixy>1.9850000000000001e-11</ixy>
+          <ixz>-2.0237999999999999e-07</ixz>
+          <iyy>5.8127000000000001e-05</iyy>
+          <iyz>-1.1015e-07</iyz>
+          <izz>3.6204000000000001e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_arm_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_arm.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='right_arm_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_arm.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.313724995 0.313724995 0.313724995 1</diffuse>
+          <ambient>0.313724995 0.313724995 0.313724995 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='right_arm_lower' type='revolute'>
+      <pose relative_to='right_arm'>0.021999999999999999 0.01925 -0.1076 0 1.57 0</pose>
+      <parent>right_arm</parent>
+      <child>right_hand</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <!-- <lower>-1.5707963267948966</lower>
+          <upper>1.5707963267948966</upper> -->
+          <lower>-3.0</lower>
+          <upper>3.0</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
         </dynamics>
       </axis>
     </joint>
     <link name='right_hand'>
-      <pose>0.12724999999999992 0.0134 -0.13600000000000001 0 1.5707963267948966 0</pose>
+      <pose relative_to='right_arm_lower'>0 0 0 0 -1.33 0</pose>
       <inertial>
-        <pose>0.063649150048299005 1.00372865470544e-08 -0.0016810551935546 0 0 0</pose>
-        <mass>0.024044269196268502</mass>
+        <pose>-0.0048133999999999998 -0.028542999999999999 -0.073357000000000006 0 0 0</pose>
+        <mass>0.064269999999999994</mass>
         <inertia>
-          <ixx>1.94691318232501e-06</ixx>
-          <ixy>-1.9798400205047599e-12</ixy>
-          <ixz>1.70538796039851e-12</ixz>
-          <iyy>4.9981652993954097e-05</iyy>
-          <iyz>-7.0639482380154195e-13</iyz>
-          <izz>5.1889171468805501e-05</izz>
+          <ixx>5.8352e-05</ixx>
+          <ixy>5.7131999999999996e-07</ixy>
+          <ixz>1.1009000000000001e-05</ixz>
+          <iyy>5.8740999999999999e-05</iyy>
+          <iyz>-2.4405000000000002e-06</iyz>
+          <izz>1.5617999999999999e-05</izz>
         </inertia>
       </inertial>
-      <collision name='right_hand_end_collision'>
-        <pose>0.135 0 -0.0015 0 0 0</pose>
+      <collision name='right_hand_collision'>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
-          <cylinder>
-            <radius>0.02</radius>
-            <length>0.003</length>
-          </cylinder>
-        </geometry>
-      </collision>
-      <collision name='right_hand_base_collision'>
-        <pose>0 0 -0.0025 0 0 0</pose>
-        <geometry>
-          <cylinder>
-            <radius>0.0146</radius>
-            <length>0.005</length>
-          </cylinder>
-        </geometry>
-      </collision>
-      <collision name='right_hand_connection_collision'>
-        <pose>0.060122 0 -0.0015 0 0 0</pose>
-        <geometry>
-          <box>
-            <size>0.120244 0.027 0.003</size>
-          </box>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_hand.STL</uri>
+          </mesh>
         </geometry>
       </collision>
       <visual name='right_hand_visual'>
@@ -1074,8 +1162,8 @@
           <ambient>1 1 1 1</ambient>
         </material>
       </visual>
-      <enable_wind>false</enable_wind>
     </link>
+
     <joint name='right_hip_yaw' type='revolute'>
       <pose>0 0 0 0 0 0</pose>
       <parent>chest</parent>

@@ -5,7 +5,7 @@
 #include "OneFootLanding.h"
 #include "PendulumWalk.h"
 #include "ForwardKinematics.h"
-#define DATA_COL_NUM 17//前 
+#define DATA_COL_NUM 19//前 
 
 using namespace std;
 

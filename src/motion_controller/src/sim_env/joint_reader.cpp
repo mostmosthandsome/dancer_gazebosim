@@ -3,7 +3,7 @@
 #include <string>
 
 using std::placeholders::_1;
-#define JOINT_NUM 18
+#define JOINT_NUM 20
 
 namespace handsome
 {

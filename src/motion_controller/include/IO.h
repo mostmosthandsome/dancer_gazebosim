@@ -70,9 +70,17 @@ namespace zjudancer
   public:
     /// @brief 期望给的命令里关节的顺序
     std::vector<std::string> joint_order = {
+      
       "left_hip_yaw",   "left_hip_roll",  "left_hip_pitch",   "left_knee",        "left_ankle_pitch",   "left_ankle_roll",
       "right_hip_yaw",  "right_hip_roll", "right_hip_pitch",  "right_knee",       "right_ankle_pitch",  "right_ankle_roll",
-      "left_arm_upper", "left_arm_lower", "right_arm_upper",  "right_arm_lower",  "head_pitch",         "head_yaw"
+      "left_arm_upper", "left_arm_middle", "left_arm_lower",   "right_arm_upper",  "right_arm_middle",  "right_arm_lower", 
+      "head_pitch",     "head_yaw"
+
+      // "left_hip_yaw",   "left_hip_roll",  "left_hip_pitch",   "left_knee",        "left_ankle_pitch",   "left_ankle_roll",
+      // "right_hip_yaw",  "right_hip_roll", "right_hip_pitch",  "right_knee",       "right_ankle_pitch",  "right_ankle_roll",
+      // "left_arm_upper", "left_arm_lower", "right_arm_upper",  "right_arm_lower", 
+      // "head_pitch",     "head_yaw"
+
     };
     /// @brief  实际仿真里的关节名称和下标的对应关系
     std::unordered_map<std::string, int> actual_joint_name_index;

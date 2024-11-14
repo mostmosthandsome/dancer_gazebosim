@@ -76,7 +76,7 @@ namespace dmotion
     struct ClimbParam
     {
         double WHOLE_TIME = 0.5;
-        double NOT_LEG_ONLY_NUMBER = 17;
+        double NOT_LEG_ONLY_NUMBER = 19;
     };
 
     struct KickParam
@@ -210,7 +210,7 @@ namespace dmotion
         double adjust_max_yaw = 10;
         double adjust_max_step_num = 5;
 
-        bool see_ball= false;
+        bool see_ball= true;
         std::vector<double> ball_field = {100,0,0};
         std::vector<double> ball_global = {0,0,0};
         std::vector<double> robot_global = {0,0,0};
@@ -236,7 +236,7 @@ namespace dmotion
         double LAAT_for_ball = 10;
 
 
-        std::vector<double> cur_servo_angles = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        std::vector<double> cur_servo_angles = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         double cur_ankle_dis =15.0;
 
 
@@ -252,6 +252,7 @@ namespace dmotion
         double panball_x = 1;
 
         double UPARM_ANGLE = 0;
+        double MIDARM_ANGLE = 0;
         double LOWARM_ANGLE = 0;
     //新规则backward
         double backward_step_length = -3;

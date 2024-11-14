@@ -10,7 +10,7 @@ namespace dmotion
     {
         parameters = std::make_shared<Parameters>();
         this->ball_position_subscriber = this->create_subscription<geometry_msgs::msg::Vector3>("ball",10,std::bind(&ParamNode::ball_position_callback,this,_1));
-        parameters->config_path = "/home/handsome/competition/sim/src/motion_controller/config/";
+        parameters->config_path = "/root/competition/dancer_gazebosim/src/motion_controller/config/";
         std::string motion_hub_param_path = parameters->config_path + "motion_hub_param.yaml",walk_param_path = parameters->config_path + "walk_param/foot_z.yaml";
         rclcpp::ParameterMap motion_hub_params = rclcpp::parameter_map_from_yaml_file(motion_hub_param_path), walk_params = rclcpp::parameter_map_from_yaml_file(walk_param_path);
         //将参数存进一个map里，方便处理
@@ -27,6 +27,7 @@ namespace dmotion
         }
 
         //get parameters and store
+
         parameters->one_foot_landing_param.ANKLE_OFFSET_X = param_map["dmotion.OneFootLanding.ankle_offset_x"].as_double();
         parameters->one_foot_landing_param.ANKLE_OFFSET_Y = param_map["dmotion.OneFootLanding.ankle_offset_y"].as_double();
         parameters->one_foot_landing_param.ANKLE_OFFSET_Z = param_map["dmotion.OneFootLanding.ankle_offset_z"].as_double();
@@ -49,7 +50,10 @@ namespace dmotion
         parameters->pendulum_walk_param.ANKLE_DIS = param_map["dmotion.PendulumWalk.ankle_dis"].as_double();
         parameters->pendulum_walk_param.COM_HEIGHT = param_map["dmotion.PendulumWalk.com_height"].as_double();    
         parameters->stp.UPARM_ANGLE = param_map["dmotion.Status.uparm_angle"].as_double();
+        parameters->stp.MIDARM_ANGLE = param_map["dmotion.Status.midarm_angle"].as_double();
+
         parameters->stp.LOWARM_ANGLE = param_map["dmotion.Status.lowarm_angle"].as_double();
+        
         
         //ThreeInterpolation.cpp
         parameters->three_interpolation_param.DEFAULT_POINT_INTERVAL = param_map["dmotion.ThreeInterpolation.default_point_interval"].as_double();
@@ -80,8 +84,6 @@ namespace dmotion
         parameters->stp.LAAT_for_ball = param_map["dmotion.Status.LAAT_for_ball"].as_double();
         parameters->stp.one_step_y = param_map["dmotion.Status.one_step_y"].as_double();
         parameters->stp.shit_rob_radius = param_map["dmotion.Status.shit_rob_radius"].as_double();
-
-
 
 
         //init ball at one of the penalty mark by default

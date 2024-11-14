@@ -125,9 +125,15 @@ action_list(std::make_shared< std::queue< std::vector<double> > >())
   double com_z = param_server_node->parameters->pendulum_walk_param.COM_HEIGHT;
   dmotion::OneFootLanding f(false,param_server_node->parameters);
   std::vector<double> hangfoot({0,com_y * 2,0,0,0,0}),com({com_x,com_y,com_z}),upbody_pose({0,0,0});
-  joint_command = f.GetOneStep(hangfoot,com,upbody_pose);
-  for(int i = 0; i < 2; ++i)  joint_command.push_back(param_server_node->parameters->stp.UPARM_ANGLE),joint_command.push_back(param_server_node->parameters->stp.LOWARM_ANGLE);
-  for(int i = 0; i < 6; ++i)   joint_command[i + 6] = joint_command[i];
+  joint_command = f.GetOneStep(hangfoot, com, upbody_pose);
+  for(int i = 0; i < 2; ++i) {
+    joint_command.push_back(param_server_node->parameters->stp.UPARM_ANGLE);
+    joint_command.push_back(param_server_node->parameters->stp.MIDARM_ANGLE);
+    joint_command.push_back(param_server_node->parameters->stp.LOWARM_ANGLE);
+  }
+
+  for(int i = 0; i < 6; ++i)  
+    joint_command[i + 6] = joint_command[i];
   joint_command[6] = -joint_command[6],joint_command[7] = -joint_command[7],joint_command[11] = -joint_command[11];
   joint_command = dmotion::Deg2Rad(joint_command);
   // std::string str;
@@ -138,7 +144,7 @@ action_list(std::make_shared< std::queue< std::vector<double> > >())
 
 MotionController::MotionController():dataPtr(std::make_unique<MotionControllerPrivate>())
 {
-  
+
 }
 
 MotionController::~MotionController()
@@ -245,16 +251,23 @@ void MotionController::PreUpdate(const UpdateInfo &_info, EntityComponentManager
       auto delta = std::chrono::duration_cast< std::chrono::milliseconds>(std::chrono::duration< double >(1.0 / this->control_frequency));//转成ms是因为std::chrono::steady_clock::duration不支持与秒的相加
       this->dataPtr->nextControlTime += delta;
       auto top_action = this->dataPtr->action_list->front();  this->dataPtr->action_list->pop();
+      std::cout << top_action.size() << std::endl << std::endl << std::endl;
+
       if(top_action.size() == 1)    //我们规定如果取出来的front 为长度为1的动作，则是delay动作，唯一一个元素表示时间长度（s为单位）
       {
         auto delay_time = std::chrono::duration_cast< std::chrono::milliseconds>(std::chrono::duration< double >(top_action[0]));
         this->dataPtr->nextControlTime += delay_time;
       }
-      else if(top_action.size() >= 16)  this->dataPtr->joint_command = Deg2Rad(top_action); //如果包括了手上的动作，就直接使用
+      else if(top_action.size() >= 18)  
+        this->dataPtr->joint_command = Deg2Rad(top_action); //如果包括了手上的动作，就直接使用
       else if(top_action.size() == 12)//如果不包括手上的动作，需要让手回到原来的位置
       {
         this->dataPtr->joint_command = Deg2Rad(top_action);
-        for(int i = 0; i < 2; ++i)  this->dataPtr->joint_command.push_back(this->dataPtr->param_server_node->parameters->stp.UPARM_ANGLE),this->dataPtr->joint_command.push_back(this->dataPtr->param_server_node->parameters->stp.LOWARM_ANGLE);
+        for(int i = 0; i < 2; ++i) {
+          this->dataPtr->joint_command.push_back(this->dataPtr->param_server_node->parameters->stp.UPARM_ANGLE);
+          this->dataPtr->joint_command.push_back(this->dataPtr->param_server_node->parameters->stp.MIDARM_ANGLE);
+          this->dataPtr->joint_command.push_back(this->dataPtr->param_server_node->parameters->stp.LOWARM_ANGLE);
+        }
       }
     }
   }
@@ -381,7 +394,7 @@ void MotionController::MotionControllerPrivate::motion_fuse()
     if((*it)->get_status() != StatusCode::WALK) break;//如果最开始的动作不是行走，就不能融合
     std::shared_ptr<newPendulumWalk> old_motion = reinterpret_cast<std::shared_ptr<newPendulumWalk> &>(*it);
     old_motion->fuse(temp_motions[i]);
-    motions.push_back()
+    // motions.push_back()
   }
   for(int i = fusing_window_pos + len0; i < len1; ++i) param_server_node->parameters->stp.tmp_gait = temp_motions[i],motions.push_back(std::make_shared<newPendulumWalk>(pendulum_global,param_server_node->parameters));
   temp_motions.clear();
